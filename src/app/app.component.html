@@ -1,0 +1,41 @@
+<ion-app>
+  <ion-split-pane>
+    <ion-menu type="overlay">
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Menu</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-toolbar>
+          <ion-grid ion-grid-padding>
+                <ion-row size="12">
+                    <ion-avatar>
+                        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+                    </ion-avatar>
+                </ion-row>
+                <ion-row size="8">
+                    <ion-text>
+                        <h6>Jose Eduardo Contreras</h6>
+                    </ion-text>
+                </ion-row>
+                <ion-row>
+                    <ion-icon name="arrow-dropdown"></ion-icon> 
+                </ion-row>
+          </ion-grid>
+      </ion-toolbar>
+      <ion-content>
+        <ion-list>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
+              <ion-icon slot="start" [name]="p.icon"></ion-icon>
+              <ion-label>
+                {{p.title}}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet main></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>
