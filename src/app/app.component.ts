@@ -17,6 +17,16 @@ export class AppComponent {
       icon: 'home'
     },
     {
+      title: 'Publicar Producto',
+      url: '/product',
+      icon: 'clipboard'
+    },
+    {
+      title: 'Chat',
+      url: '/chat',
+      icon: 'mail-unread'
+    },
+    {
       title: 'Notificaciones',
       url: '/home',
       icon: 'notifications-outline'

@@ -30,11 +30,11 @@
 </ion-header>
 
 <ion-content>
-    <ion-grid>
+    <ion-grid *ngFor="let item of listhome">
         <ion-row>
           <ion-col>
               <ion-text>
-                <h4>Productos Principales</h4>
+                <h4>{{ item.titulo }}</h4>
               </ion-text>
           </ion-col>
           <ion-col size="3">
@@ -44,14 +44,14 @@
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col size="6" *ngFor="let item of listado">
+          <ion-col size="6" *ngFor="let off of item.listado">
               <ion-card>
-                  <ion-img [src]="item.img"></ion-img>
+                  <ion-img [src]="off.img"></ion-img>
                   <ion-card-header>
-                    <ion-card-subtitle>{{ item.subtitulo }}</ion-card-subtitle>
+                    <ion-card-subtitle>{{ off.subtitulo }}</ion-card-subtitle>
                   </ion-card-header>
                   <ion-card-content>
-                    {{ item.content }}
+                    {{ off.content }}
                   </ion-card-content>
                 </ion-card>
           </ion-col>
