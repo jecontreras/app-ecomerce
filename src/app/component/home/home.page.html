@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="success">
     <ion-grid>
           <ion-row size="12">
             <ion-buttons>
@@ -22,7 +22,7 @@
           </ion-row>
           <ion-row size="12">
             <ion-col>
-                <ion-searchbar placeholder="Buscar Ecomerce"></ion-searchbar>
+                <ion-searchbar placeholder="Buscar Ecomerce" [(ngModel)]="searchtxt" (input)="search()"></ion-searchbar>
             </ion-col>
           </ion-row>
     </ion-grid>
@@ -46,12 +46,12 @@
         <ion-row>
           <ion-col size="6" *ngFor="let off of item.listado">
               <ion-card>
-                  <ion-img [src]="off.img"></ion-img>
+                  <ion-img [src]=" off.foto "></ion-img>
                   <ion-card-header>
-                    <ion-card-subtitle>{{ off.subtitulo }}</ion-card-subtitle>
+                    <ion-card-subtitle>{{ off.titulo }}</ion-card-subtitle>
                   </ion-card-header>
                   <ion-card-content>
-                    {{ off.content }}
+                    {{ off.tipo }}
                   </ion-card-content>
                 </ion-card>
           </ion-col>
