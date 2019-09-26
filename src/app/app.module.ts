@@ -17,6 +17,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment'; // Angular CLI environemnt
 import { StoreModule } from '@ngrx/store';
 import { appReducer } from './redux/app';
+import { ProductoPageModule } from './dialog/form/producto/producto.module';
+import { ArticuloModelPageModule } from './dialog/form/articulo-model/articulo-model.module';
+
 
 @NgModule({
   declarations: [
@@ -26,6 +29,7 @@ import { appReducer } from './redux/app';
   entryComponents: [],
   imports: [
     HttpClientModule,
+    ArticuloModelPageModule,
     StoreModule.forRoot({ name: appReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
@@ -35,7 +39,8 @@ import { appReducer } from './redux/app';
     RouterModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ProductoPageModule
   ],
   providers: [
     StatusBar,

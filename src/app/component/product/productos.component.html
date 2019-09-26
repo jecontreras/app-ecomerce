@@ -4,39 +4,27 @@
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
       <ion-title>
-        Crear Prodcutos
+        Listado de Productos
       </ion-title>
+      <ion-button color="primary" slot="end" (click)="open_form(false)">
+          Crear
+      </ion-button>
     </ion-toolbar>
   </ion-header>
-  
   <ion-content>
-      <div padding>
-          <ion-grid>
-              <ion-row>
-                <ion-col>
-                    <ion-label>Nombre del Producto</ion-label>
-                    <ion-input type="text" [(ngModel)]="data.titulo" inputmode="text"></ion-input>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                  <ion-col>
-                      <ion-label>Precio</ion-label>
-                      <ion-input placeholder="" [(ngModel)]="data.precio"></ion-input>
-                  </ion-col>
-              </ion-row>
-              <ion-row>
-                  <ion-col>
-                      <ion-label>Descripcion</ion-label>
-                      <ion-input placeholder="" [(ngModel)]="data.descripcion"></ion-input>
-                  </ion-col>
-              </ion-row>
-              <ion-row>
-                  <ion-col>
-                      <ion-button color="success"(click)="submit()">Guardar</ion-button>
-                  </ion-col>
-              </ion-row>
-
-          </ion-grid>
-      </div>
+      <ion-row>
+          <ion-col size="6" *ngFor="let off of list_product">
+              <ion-card>
+                  <ion-img [src]=" off.foto "></ion-img>
+                    <ion-card-header>
+                        <ion-card-subtitle>{{ off.titulo }}</ion-card-subtitle>
+                    </ion-card-header>
+                  <ion-card-content>
+                    {{ off.tipo }}
+                  </ion-card-content>
+              </ion-card>
+          </ion-col>
+        </ion-row>
   </ion-content>
+  
   

@@ -50,6 +50,8 @@ export class HomePage {
 
   }
   search(){
+    console.log("hola", this.listhome, this.searchtxt);
+    
     this.listhome[0].listado = this.listhome[0].listado.filter(row=>row.titulo >= this.searchtxt)
     console.log(this.listado);
   }
