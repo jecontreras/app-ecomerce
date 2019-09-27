@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -18,7 +18,6 @@ import { environment } from '../environments/environment'; // Angular CLI enviro
 import { StoreModule } from '@ngrx/store';
 import { appReducer } from './redux/app';
 import { ProductoPageModule } from './dialog/form/producto/producto.module';
-import { ArticuloModelPageModule } from './dialog/form/articulo-model/articulo-model.module';
 
 
 @NgModule({
@@ -26,10 +25,14 @@ import { ArticuloModelPageModule } from './dialog/form/articulo-model/articulo-m
     AppComponent,
     ProductosComponent
   ],
-  entryComponents: [],
+  entryComponents: [
+  ],
+  exports:[
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   imports: [
     HttpClientModule,
-    ArticuloModelPageModule,
     StoreModule.forRoot({ name: appReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
@@ -40,6 +43,7 @@ import { ArticuloModelPageModule } from './dialog/form/articulo-model/articulo-m
     IonicModule.forRoot(),
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     ProductoPageModule
   ],
   providers: [

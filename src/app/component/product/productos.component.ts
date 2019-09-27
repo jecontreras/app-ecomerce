@@ -6,8 +6,7 @@ import { Store } from '@ngrx/store';
 import { ARTICULOS } from 'src/app/redux/interfax/articulos';
 import { ArticulosAction } from 'src/app/redux/app.actions';
 import { ModalController } from '@ionic/angular';
-import { ProductoPageModule } from 'src/app/dialog/form/producto/producto.module';
-import { ArticuloModelPageModule } from 'src/app/dialog/form/articulo-model/articulo-model.module';
+import { ProductoPage } from '../../dialog/form/producto/producto.page';
 
 
 @Component({
@@ -64,10 +63,10 @@ export class ProductosComponent implements OnInit {
   open_form(obj) {
     console.log(this.modalCtrl);
     this.modalCtrl.create({
-      component: ArticuloModelPageModule,
-      // componentProps: {
-      //   obj: obj
-      // }
+      component: ProductoPage,
+      componentProps: {
+        obj: obj
+      }
     }).then(modal=>modal.present());
   }
 

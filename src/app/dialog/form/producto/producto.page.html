@@ -1,12 +1,53 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Crear Productos</ion-title>
+    <ion-button slot="end" (click)="cerrarModal()">
+        <ion-icon name="close-circle-outline"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <!-- <div padding>
+    <!-- <form [formGroup]="myForm_product" (ngSubmit)="submit()">
+        <ion-list>
+        <ion-item>
+            <ion-icon name="codigo" item-start></ion-icon>
+            <ion-label stacked>codigo:</ion-label>
+            <ion-input formControlName="codigo" type="text" placeholder="Codigo del Producto"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-icon name="titulo" item-start></ion-icon>
+            <ion-label stacked>Nombre del Producto:</ion-label>
+            <ion-input formControlName="titulo" inputmode="text" type="text" placeholder="titulo del producto"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-icon name="cantidad" item-start></ion-icon>
+            <ion-label stacked>Cantidad:</ion-label>
+            <ion-input formControlName="cantidad" type="number" placeholder="Cantidad de Unidades"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-icon name="costoventa" item-start></ion-icon>
+            <ion-label stacked>Precio:</ion-label>
+            <ion-input formControlName="costoventa" type="number" placeholder="Precio del Producto"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-icon name="costopromosion" item-start></ion-icon>
+            <ion-label stacked>Precio Promosion:</ion-label>
+            <ion-input formControlName="costopromosion" type="number" placeholder="Precio de Promision del Producto"></ion-input>
+        </ion-item>
+        </ion-list>
+        <div padding>
+        <button ion-button block type="submit" [disabled]="!myForm_product.valid">Guardar</button>
+        </div>
+    </form> -->
+    <div padding>
         <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <ion-label>Foto</ion-label>
+                    <ion-img [src]="data.foto"></ion-img>
+                </ion-col>
+            </ion-row>
             <ion-row>
               <ion-col>
                   <ion-label>Nombre del Producto</ion-label>
@@ -32,5 +73,5 @@
             </ion-row>
 
         </ion-grid>
-    </div> -->
+    </div>
 </ion-content>

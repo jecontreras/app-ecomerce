@@ -9,6 +9,11 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: '*',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
+  {
     path: 'home',
     loadChildren: () => import('./component/home/home.module').then(m => m.HomePageModule)
   },
@@ -21,11 +26,11 @@ const routes: Routes = [
     path: 'list',
     loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
   },
-  { path: 'producto',
-    loadChildren: () => import('./dialog/form/producto/producto.module').then(m => m.ProductoPageModule) },
-  { path: 'articulo-model', loadChildren: './dialog/form/articulo-model/articulo-model.module#ArticuloModelPageModule' }
+  // { path: 'producto',
+  //   loadChildren: () => import('./dialog/form/producto/producto.module').then(m => m.ProductoPageModule) },
+  // { path: 'articulo-model', loadChildren: './dialog/form/articulo-model/articulo-model.module#ArticuloModelPageModule' }
 
-  // { path: 'producto', loadChildren: './dialog/form/producto/producto.module#ProductoPageModule' }
+  { path: 'producto', loadChildren: './dialog/form/producto/producto.module#ProductoPageModule' }
 ];
 
 @NgModule({
