@@ -1,77 +1,102 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Crear Productos</ion-title>
-    <ion-button slot="end" (click)="cerrarModal()">
-        <ion-icon name="close-circle-outline"></ion-icon>
-    </ion-button>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title *ngIf="!evento.id">Crear Productos</ion-title>
+        <ion-title *ngIf="evento.id">Editar Productos</ion-title>
+        <ion-button slot="end" (click)="cerrarModal()">
+            <ion-icon name="close-circle-outline"></ion-icon>
+        </ion-button>
+        <ion-button *ngIf="!evento.id" (click)="submit()" slot="end" color="success">Guardar</ion-button>
+        <ion-button *ngIf="evento.id" (click)="editar()" slot="end" color="success">Editar</ion-button>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <!-- <form [formGroup]="myForm_product" (ngSubmit)="submit()">
+    <form [formGroup]="myForm_product">
         <ion-list>
-        <ion-item>
-            <ion-icon name="codigo" item-start></ion-icon>
-            <ion-label stacked>codigo:</ion-label>
-            <ion-input formControlName="codigo" type="text" placeholder="Codigo del Producto"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-icon name="titulo" item-start></ion-icon>
-            <ion-label stacked>Nombre del Producto:</ion-label>
-            <ion-input formControlName="titulo" inputmode="text" type="text" placeholder="titulo del producto"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-icon name="cantidad" item-start></ion-icon>
-            <ion-label stacked>Cantidad:</ion-label>
-            <ion-input formControlName="cantidad" type="number" placeholder="Cantidad de Unidades"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-icon name="costoventa" item-start></ion-icon>
-            <ion-label stacked>Precio:</ion-label>
-            <ion-input formControlName="costoventa" type="number" placeholder="Precio del Producto"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-icon name="costopromosion" item-start></ion-icon>
-            <ion-label stacked>Precio Promosion:</ion-label>
-            <ion-input formControlName="costopromosion" type="number" placeholder="Precio de Promision del Producto"></ion-input>
-        </ion-item>
+            <ion-item>
+                <!-- <ion-icon name="at" item-start></ion-icon> -->
+                <ion-img [src]="this.url"></ion-img>
+                <ion-label position="floating">Foto</ion-label>
+                <ion-input (change)="view_image($event)" formControlName="foto" type="file">
+                </ion-input>
+            </ion-item>
+            <ion-item>
+                <!-- <ion-icon name="at" item-start></ion-icon> -->
+                <ion-label position="floating">Codigo</ion-label>
+                <ion-input formControlName="codigo" type="text" placeholder="Codigo del Producto">
+                </ion-input>
+            </ion-item>
+            <ion-item>
+                <!-- <ion-icon name="filing" item-start></ion-icon> -->
+                <ion-label position="floating">Nombre</ion-label>
+                <ion-input formControlName="titulo" type="text" placeholder="Nombre del producto">
+                </ion-input>
+            </ion-item>
+            <ion-item>
+                <!-- <ion-icon name="keypad" item-start></ion-icon> -->
+                <ion-label position="floating">Cantidad</ion-label>
+                <ion-input formControlName="cantidad" type="number" placeholder="Cantidad de Unidades">
+                </ion-input>
+            </ion-item>
+            <ion-item>
+                <!-- <ion-icon name="cash" item-start></ion-icon> -->
+                <ion-label position="floating">Costo de Venta</ion-label>
+                <ion-input formControlName="costoventa" type="number" placeholder="Precio del Producto">
+                </ion-input>
+            </ion-item>
+            <ion-item>
+                <!-- <ion-icon name="cash" item-start></ion-icon> -->
+                <ion-label position="floating">Costo de Promosion</ion-label>
+                <ion-input formControlName="costopromosion" type="number"
+                    placeholder="Precio de Promision del Producto"></ion-input>
+            </ion-item>
+            <ion-item>
+                <!-- <ion-icon name="cash" item-start></ion-icon> -->
+                <ion-label position="floating">Descripcion</ion-label>
+                <ion-textarea formControlName="descripcion" placeholder="Descripcion del Producto" rows="6" cols="20">
+                </ion-textarea>
+            </ion-item>
         </ion-list>
         <div padding>
-        <button ion-button block type="submit" [disabled]="!myForm_product.valid">Guardar</button>
         </div>
-    </form> -->
-    <div padding>
+    </form>
+
+    <div>
         <ion-grid>
             <ion-row>
+                <ion-col size="12">
+                    <ion-list>
+                        <ion-item>
+                            <ion-label position="floating">Subir Fotos</ion-label>
+                            <ion-input type="file"></ion-input>
+                        </ion-item>
+                    </ion-list>
+                </ion-col>
                 <ion-col>
-                    <ion-label>Foto</ion-label>
-                    <ion-img [src]="data.foto"></ion-img>
+                    <ion-img
+                        [src]="'https://publihazclick.s3.amazonaws.com/venty/41dd1b07-3589-4e83-a72c-ed42e624622c.jpg'">
+                    </ion-img>
+                </ion-col>
+                <ion-col>
+                    <ion-img
+                        [src]="'https://publihazclick.s3.amazonaws.com/venty/41dd1b07-3589-4e83-a72c-ed42e624622c.jpg'">
+                    </ion-img>
+                </ion-col>
+                <ion-col>
+                    <ion-img
+                        [src]="'https://publihazclick.s3.amazonaws.com/venty/41dd1b07-3589-4e83-a72c-ed42e624622c.jpg'">
+                    </ion-img>
+                </ion-col>
+                <ion-col>
+                    <ion-img
+                        [src]="'https://publihazclick.s3.amazonaws.com/venty/41dd1b07-3589-4e83-a72c-ed42e624622c.jpg'">
+                    </ion-img>
                 </ion-col>
             </ion-row>
-            <ion-row>
-              <ion-col>
-                  <ion-label>Nombre del Producto</ion-label>
-                  <ion-input type="text" [(ngModel)]="data.titulo" inputmode="text"></ion-input>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    <ion-label>Precio</ion-label>
-                    <ion-input placeholder="" [(ngModel)]="data.precio"></ion-input>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    <ion-label>Descripcion</ion-label>
-                    <ion-input placeholder="" [(ngModel)]="data.descripcion"></ion-input>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    <ion-button color="success"(click)="submit()">Guardar</ion-button>
-                </ion-col>
-            </ion-row>
-
         </ion-grid>
     </div>
+
+
+
+
 </ion-content>

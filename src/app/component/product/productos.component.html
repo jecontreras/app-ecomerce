@@ -1,30 +1,41 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-title>
-        Listado de Productos
-      </ion-title>
-      <ion-button (click)="open_form(false)" slot="end">
-            <ion-icon slot="icon-only" name="add-circle"></ion-icon>
-      </ion-button>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content>
+  <ion-toolbar color="success">
+    <ion-grid>
       <ion-row>
-          <ion-col size="6" *ngFor="let off of list_product" (click)="open_form(off)">
-              <ion-card>
-                  <ion-img [src]=" off.foto "></ion-img>
-                    <ion-card-header>
-                        <ion-card-subtitle>{{ off.titulo }}</ion-card-subtitle>
-                    </ion-card-header>
-                  <ion-card-content>
-                    {{ off.tipo }}
-                  </ion-card-content>
-              </ion-card>
-          </ion-col>
-        </ion-row>
-  </ion-content>
-  
-  
+        <ion-col size="2">
+            <ion-buttons>
+              <ion-menu-button></ion-menu-button>
+            </ion-buttons>
+        </ion-col>
+        <ion-col size="8">
+            <ion-title  class="ion-padding-top">
+              Lista de Productos
+            </ion-title>
+        </ion-col>
+        <ion-col size="2">
+          <ion-button (click)="open_form(false)">
+            <ion-icon slot="icon-only" name="add-circle"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="12">
+            <ion-searchbar placeholder="Buscar Producto" [(ngModel)]="searchtxt" (input)="search()"></ion-searchbar>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-row>
+    <ion-col size="6" *ngFor="let off of list_product" (click)="open_form(off)">
+      <ion-card>
+        <ion-img [src]=" off.foto "></ion-img>
+        <ion-card-header>
+          <ion-card-subtitle>{{ off.titulo }}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          {{ off.tipo }}
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>

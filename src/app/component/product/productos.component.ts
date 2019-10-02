@@ -45,6 +45,8 @@ export class ProductosComponent implements OnInit {
     "ancho": 1,
   };
   list_product: any = [];
+
+  searchtxt:any;
   constructor(
     private http: HttpClient,
     private _store: Store<ARTICULOS>,
@@ -61,7 +63,6 @@ export class ProductosComponent implements OnInit {
   ngOnInit() {
   }
   open_form(obj) {
-    console.log(this.modalCtrl);
     this.modalCtrl.create({
       component: ProductoPage,
       componentProps: {
@@ -70,39 +71,9 @@ export class ProductosComponent implements OnInit {
     }).then(modal=>modal.present());
   }
 
-  submit(){
-    // console.log(this.data);
-    this.data.titulo          = this.data.titulo;
-    this.data.descripcion     = this.data.descripcion;
-    this.data.id = 123;
-    let accion = new ArticulosAction(this.data, 'post');
-    this._store.dispatch(accion);
-    // this.http.post('http://localhost:1337/articulo',this.data)
-    // .subscribe(
-    //   (res: any)=>{
-    //     console.log(res);
-    //     let accion = new ArticulosAction(res, 'post');
-    //     this._store.dispatch(accion);
-    //   }
-    // );
-
-  }
-  update(){
-    // console.log(this.data);
-    this.data.titulo          = this.data.titulo;
-    this.data.descripcion     = this.data.descripcion;
-    this.data.id = 123;
-    let accion = new ArticulosAction(this.data, 'post');
-    this._store.dispatch(accion);
-    // this.http.post('http://localhost:1337/articulo',this.data)
-    // .subscribe(
-    //   (res: any)=>{
-    //     console.log(res);
-    //     let accion = new ArticulosAction(res, 'post');
-    //     this._store.dispatch(accion);
-    //   }
-    // );
-
+  search(){
+    this.list_product.filter(row=>row.titulo >= this.searchtxt);
+    // console.log(this.searchtxt, this.list_product);
   }
 
 }

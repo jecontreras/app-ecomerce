@@ -1,5 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormBuilder, ReactiveFormsModule, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { ProductoPage } from './producto.page';
 
@@ -10,6 +11,7 @@ describe('ProductoPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ProductoPage ],
+      imports: [ReactiveFormsModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();

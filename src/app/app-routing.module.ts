@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { ProductosComponent } from './component/product/productos.component';
+import { CategoriasComponent } from './component/categorias/categorias.component';
+import { ProductviewComponent } from './component/productview/productview.component';
+import { ChequiarComponent } from './component/chequiar/chequiar.component';
 
 const routes: Routes = [
   {
@@ -26,9 +29,26 @@ const routes: Routes = [
     path: 'list',
     loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
   },
-  // { path: 'producto',
-  //   loadChildren: () => import('./dialog/form/producto/producto.module').then(m => m.ProductoPageModule) },
-  // { path: 'articulo-model', loadChildren: './dialog/form/articulo-model/articulo-model.module#ArticuloModelPageModule' }
+  {
+    path: 'categoria',
+    component: CategoriasComponent
+  },
+  {
+    path: 'categoria/:id',
+    component: CategoriasComponent
+  },
+  {
+    path: 'productoview',
+    component: ProductviewComponent
+  },
+  {
+    path: 'productoview/:id',
+    component: ProductviewComponent
+  },
+  {
+    path: 'chech',
+    component: ChequiarComponent
+  },
 
   { path: 'producto', loadChildren: './dialog/form/producto/producto.module#ProductoPageModule' }
 ];

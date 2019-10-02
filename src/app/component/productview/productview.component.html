@@ -1,0 +1,118 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="2">
+          <ion-buttons>
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+        </ion-col>
+        <ion-col size="8">
+          <ion-title class="ion-padding-top">
+            Ecomerce
+          </ion-title>
+        </ion-col>
+        <ion-col size="2">
+          <ion-button color="success">
+            <ion-icon name="logo-dribbble"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="12">
+          <ion-searchbar placeholder="Buscar Ecomerce" [(ngModel)]="searchtxt" (input)="search()"></ion-searchbar>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-img *ngIf="data" [src]="data.foto"></ion-img>
+      </ion-col>
+      <ion-col size="12">
+        <ion-text class="ion-padding-top" color="dark">
+          {{ data.titulo }}
+        </ion-text>
+      </ion-col>
+      <ion-col size="12">
+        <ion-text class="ion-padding-top" color="dark">
+          <ion-label position="floating">Aprox.</ion-label>
+          {{ data.costoventa | currency:'COP':true }}
+          <span>{{ data.envio || 'Envio Gratis'}}</span>
+          <p>{{ data.usb || '0' | currency:'USB':true }}</p>
+          <br>
+          <!-- <span>{{ }}</span> -->
+        </ion-text>
+      </ion-col>
+      <ion-row>
+        <ion-col size="6">
+          {{ data.unidad_vendidas || 0 + " Vendidos" }}
+        </ion-col>
+        <ion-col size="6">
+          {{ "Más de " + data.unidad_vendidas_rango || 0 + "% Vendidos" }}
+        </ion-col>
+      </ion-row>
+      <ion-col size="12">
+        <ion-label>Cantidad:</ion-label>
+        <ion-select placeholder="Cantidad adquirir" [(ngModel)]="data.cantida_adquiridad">
+          <ion-select-option value="1">1</ion-select-option>
+          <ion-select-option value="2">2</ion-select-option>
+          <ion-select-option value="3">3</ion-select-option>
+          <ion-select-option value="4">4</ion-select-option>
+          <ion-select-option value="5">5</ion-select-option>
+        </ion-select>
+      </ion-col>
+      <ion-col size="12">
+        <div class="ion-text-center">
+          <ion-button color="primary" (click)="submit_cart('comprar')" class="ion-padding ion-text-center">¡Compralo ahora!</ion-button>
+        </div>
+      </ion-col>
+      <ion-col size="12">
+        <div class="ion-text-center">
+          <ion-button color="primary" (click)="submit_cart('agregar')" class="ion-padding ion-text-center">Agregar al carro de compras</ion-button>
+        </div>
+      </ion-col>
+      <ion-col size="12">
+        <div class="ion-text-center">
+          <ion-button color="primary" (click)="fn_favorito()" class="ion-padding ion-text-center">Marcar como favorito</ion-button>
+        </div>
+      </ion-col>
+      <ion-col size="12">
+        slider
+      </ion-col>
+      <ion-col size="12">
+        Sobre este articulo
+      </ion-col>
+      <ion-col size="12">
+        Envíos, devoluciones y pagos
+      </ion-col>
+      <ion-col size="12">
+        Articulos patrocinados relacionados
+      </ion-col>
+      <ion-col size="12">
+        Compra con confianza
+      </ion-col>
+      <ion-col size="12">
+        Sobre este vendedor
+      </ion-col>
+      <ion-col size="12">
+        otras personas también compraron
+      </ion-col>
+      <ion-col size="12">
+        <div class="ion-text-center">
+          <ion-button color="primary" class="ion-padding ion-text-center">Compartir</ion-button>
+        </div>
+      </ion-col>
+      <ion-col size="12">
+        <div class="ion-text-center">
+          <ion-button color="primary" class="ion-padding ion-text-center">Denunciar un articulo</ion-button>
+        </div>
+      </ion-col>
+      <ion-col size="12">
+        otras articulos que te pueden gustar
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -18,18 +18,22 @@ import { environment } from '../environments/environment'; // Angular CLI enviro
 import { StoreModule } from '@ngrx/store';
 import { appReducer } from './redux/app';
 import { ProductoPageModule } from './dialog/form/producto/producto.module';
+import { CategoriasComponent } from './component/categorias/categorias.component';
+import { ProductviewComponent } from './component/productview/productview.component';
+import { ChequiarComponent } from './component/chequiar/chequiar.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductosComponent
+    ProductosComponent,
+    CategoriasComponent,
+    ProductviewComponent,
+    ChequiarComponent
   ],
   entryComponents: [
   ],
   exports:[
-    FormsModule,
-    ReactiveFormsModule,
   ],
   imports: [
     HttpClientModule,
