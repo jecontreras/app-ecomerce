@@ -20,6 +20,9 @@ export class ChequiarComponent implements OnInit {
     .subscribe((store:any)=>{
         console.log(store);
         this.list_articulo = store.cart;
+        this.list_articulo.forEach((row:any)=>{
+          row.active = true;
+        });
         this.obj_cart();
     });
   }
@@ -35,5 +38,9 @@ export class ChequiarComponent implements OnInit {
 
   }
   ngOnInit() {}
+
+  btn_guardar(obj:any){
+
+  }
 
 }

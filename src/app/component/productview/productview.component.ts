@@ -12,7 +12,7 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./productview.component.scss'],
 })
 export class ProductviewComponent implements OnInit {
-  public data:any = {}; 
+  public data:any = {};
   public list_productos:any = [];
   constructor(
     private router: Router,
@@ -32,6 +32,12 @@ export class ProductviewComponent implements OnInit {
     this.route.params.subscribe(params => {
       if(params['id']!=null){
         this.data = this.list_productos.find(row=>row.id == params['id']);
+        this.data.cantida_adquiridad = String(1);
+        if(!this.data.informacion_articulo) this.data.informacion_articulo = [{key: "none", value: "none"}];
+        if(!this.data.comentario) this.data.comentario = [{key: "none", value: "none"}];
+        if(!this.data.envios_devoluciones) this.data.envios_devoluciones = [{key: "none", value: "none"}];
+        if(!this.data.list_comentario_vendedor) this.data.list_comentario_vendedor = [{username: "pos_r", titulo: "Excelente", comentario: "genial vendedor"}];
+        if(!this.data.user) this.data.user = {};
       }
     });
   }

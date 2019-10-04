@@ -80,8 +80,10 @@ export class ProductoPage implements OnInit {
     return (Date.now().toString(36).substr(2, 3) + Math.random().toString(36).substr(2, 2)).toUpperCase(); 
   }
   submit(){
-    let data = this.myForm_product.value;
-    let accion = new ArticulosAction(data, 'post');
+    let data:any = this.myForm_product.value;
+    data.comentario = [];
+    data.informacion_articulo = [];
+    let accion:any = new ArticulosAction(data, 'post');
     this._store.dispatch(accion);
     this.myForm_product = this.createMyForm();
   }

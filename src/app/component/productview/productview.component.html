@@ -13,7 +13,7 @@
           </ion-title>
         </ion-col>
         <ion-col size="2">
-          <ion-button color="success">
+          <ion-button color="success" [routerLink]="['/chech']">
             <ion-icon name="logo-dribbble"></ion-icon>
           </ion-button>
         </ion-col>
@@ -54,7 +54,7 @@
           {{ "Más de " + data.unidad_vendidas_rango || 0 + "% Vendidos" }}
         </ion-col>
       </ion-row>
-      <ion-col size="12">
+      <!-- <ion-col size="12">
         <ion-label>Cantidad:</ion-label>
         <ion-select placeholder="Cantidad adquirir" [(ngModel)]="data.cantida_adquiridad">
           <ion-select-option value="1">1</ion-select-option>
@@ -63,55 +63,145 @@
           <ion-select-option value="4">4</ion-select-option>
           <ion-select-option value="5">5</ion-select-option>
         </ion-select>
-      </ion-col>
+      </ion-col> -->
       <ion-col size="12">
         <div class="ion-text-center">
-          <ion-button color="primary" (click)="submit_cart('comprar')" class="ion-padding ion-text-center">¡Compralo ahora!</ion-button>
+          <ion-button color="primary" expand="full" (click)="submit_cart('comprar')"
+            class="ion-padding ion-text-center">¡Compralo ahora!</ion-button>
+          <ion-button color="primary" expand="full" (click)="submit_cart('consultar')"
+            class="ion-padding ion-text-center">Consultar o Cotizar</ion-button>
+          <ion-button color="primary" expand="full" (click)="fn_favorito()" class="ion-padding ion-text-center">Marcar
+            como favorito</ion-button>
         </div>
       </ion-col>
       <ion-col size="12">
         <div class="ion-text-center">
-          <ion-button color="primary" (click)="submit_cart('agregar')" class="ion-padding ion-text-center">Agregar al carro de compras</ion-button>
+          <!-- <ion-button color="primary" (click)="submit_cart('agregar')" class="ion-padding ion-text-center">Agregar al carro de compras</ion-button> -->
         </div>
       </ion-col>
       <ion-col size="12">
         <div class="ion-text-center">
-          <ion-button color="primary" (click)="fn_favorito()" class="ion-padding ion-text-center">Marcar como favorito</ion-button>
         </div>
       </ion-col>
       <ion-col size="12">
         slider
       </ion-col>
       <ion-col size="12">
-        Sobre este articulo
+        <ion-text class="ion-padding-top" color="dark">
+          <h6>Sobre este artículo</h6>
+        </ion-text>
+        <ion-row>
+          <ion-col *ngFor="let item of data.informacion_articulo">
+            <ion-row>
+              <ion-col size="6">
+                <ion-text class="ion-padding-top" color="dark">
+                  <h6>{{ item.key }}</h6>
+                </ion-text>
+              </ion-col>
+              <ion-col size="6">
+                <ion-text class="ion-padding-top" color="dark">
+                  <h6>{{ item.value }}</h6>
+                </ion-text>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+        <ion-text class="ion-padding-top" color="dark">
+          <h6>Descripción del articulo</h6>
+          <p>{{ data.descipcion }}</p>
+        </ion-text>
       </ion-col>
       <ion-col size="12">
         Envíos, devoluciones y pagos
+        <ion-row>
+          <ion-col *ngFor="let item of data.list_envios_devoluciones">
+            <ion-row>
+              <ion-col size="6">
+                <ion-text class="ion-padding-top" color="dark">
+                  <h6>{{ item.key }}</h6>
+                </ion-text>
+              </ion-col>
+              <ion-col size="6">
+                <ion-text class="ion-padding-top" color="dark">
+                  <h6>{{ item.value }}</h6>
+                </ion-text>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
       </ion-col>
       <ion-col size="12">
         Articulos patrocinados relacionados
       </ion-col>
       <ion-col size="12">
         Compra con confianza
+        <ion-list>
+          <ion-item *ngFor="let item of list_comentario_vendedor">
+            <ion-avatar slot="start">
+              <img [src]="item.foto || './assets/imagenes/dilisap1.png'">
+            </ion-avatar>
+            <ion-label>
+              <ion-text class="ion-padding-top" color="dark">
+                <h2>{{ item.username }}</h2>
+                <h3>{{ item.titulo }}</h3>
+                <p>{{ item.comentario }}</p>
+              </ion-text>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+
       </ion-col>
       <ion-col size="12">
         Sobre este vendedor
+        <ion-list>
+          <ion-item>
+            <ion-avatar slot="start">
+              <img [src]="data.user.foto || './assets/imagenes/dilisap1.png'">
+            </ion-avatar>
+            <ion-label>
+              <ion-text class="ion-padding-top" color="dark">
+                <h2>{{ data.user.username }}</h2>
+                <p>{{ data.user.promedio_comentario || 0 + ' comentarios positivos'}}</p>
+              </ion-text>
+            </ion-label>
+          </ion-item>
+          <div class="ion-text-center" color="primary">
+            <h6>Más informacion</h6>
+          </div>
+          <ion-row>
+            <ion-col size="10">
+              <ion-text class="ion-padding-top" color="dark">
+                <h6>Otros articulos del vendedor</h6>
+              </ion-text>
+            </ion-col>
+            <ion-col size="2">
+              <ion-icon class="ion-padding-top" name="arrow-dropright"></ion-icon>
+            </ion-col>
+            <ion-col size="10">
+              <ion-text class="ion-padding-top" color="dark">
+                <h6>Contactar al vendedor</h6>
+              </ion-text>
+            </ion-col>
+            <ion-col size="2">
+              <ion-icon class="ion-padding-top" name="arrow-dropright"></ion-icon>
+            </ion-col>
+
+          </ion-row>
+
+        </ion-list>
       </ion-col>
       <ion-col size="12">
         otras personas también compraron
       </ion-col>
       <ion-col size="12">
         <div class="ion-text-center">
-          <ion-button color="primary" class="ion-padding ion-text-center">Compartir</ion-button>
-        </div>
-      </ion-col>
-      <ion-col size="12">
-        <div class="ion-text-center">
-          <ion-button color="primary" class="ion-padding ion-text-center">Denunciar un articulo</ion-button>
+          <ion-button color="primary" expand="full" class="ion-padding ion-text-center">Compartir</ion-button>
+          <ion-button color="primary" expand="full" class="ion-padding ion-text-center">Denunciar un articulo</ion-button>
         </div>
       </ion-col>
       <ion-col size="12">
         otras articulos que te pueden gustar
+        
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -17,46 +17,38 @@ export class AppComponent {
       icon: 'home'
     },
     {
-      title: 'Publicar Producto',
-      url: '/product',
-      icon: 'clipboard'
-    },
-    {
-      title: 'Chat',
-      url: '/chat',
-      icon: 'mail-unread'
-    },
-    {
       title: 'Notificaciones',
-      url: '/home',
+      url: '/product',
       icon: 'notifications-outline'
     },
     {
       title: 'Mensajes',
-      url: '/home',
-      icon: 'mail'
-    },
-    {
-      title: 'Visto',
-      url: '/home',
-      icon: 'eye'
-    },
-    {
-      title: 'Comprado',
-      url: '/home',
-      icon: 'cash'
-    },
-    {
-      title: 'Ofertas',
-      url: '/home',
-      icon: 'pricetags'
+      url: '/chat',
+      icon: 'mail-unread'
     }
-    // {
-    //   title: 'List',
-    //   url: '/list',
-    //   icon: 'list'
-    // }
   ];
+  public appTienda = [
+    {
+      title: 'Productos',
+      url: '/product',
+      icon: 'filing'
+    },
+    {
+      title: 'Anuncios',
+      url: '/chat',
+      icon: 'megaphone'
+    },
+    {
+      title: 'Subastas',
+      url: '/chat',
+      icon: 'hammer'
+    },
+    {
+      title: 'Negocios',
+      url: '/chat',
+      icon: 'contacts'
+    }
+  ]
 
   constructor(
     private platform: Platform,

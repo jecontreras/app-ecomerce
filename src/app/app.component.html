@@ -33,6 +33,17 @@
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
+          <ion-text class="ion-padding-top" color="dark">
+            <h6>Mi Tienda</h6>
+          </ion-text>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appTienda">
+              <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
+                <ion-icon slot="start" [name]="p.icon"></ion-icon>
+                <ion-label>
+                  {{p.title}}
+                </ion-label>
+              </ion-item>
+            </ion-menu-toggle>
         </ion-list>
       </ion-content>
     </ion-menu>
