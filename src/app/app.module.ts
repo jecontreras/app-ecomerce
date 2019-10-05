@@ -21,6 +21,8 @@ import { ProductoPageModule } from './dialog/form/producto/producto.module';
 import { CategoriasComponent } from './component/categorias/categorias.component';
 import { ProductviewComponent } from './component/productview/productview.component';
 import { ChequiarComponent } from './component/chequiar/chequiar.component';
+import { ChatComponent } from './component/chat/chat.component';
+import { ChatViewComponent } from './component/chat-view/chat-view.component';
 
 
 @NgModule({
@@ -29,7 +31,9 @@ import { ChequiarComponent } from './component/chequiar/chequiar.component';
     ProductosComponent,
     CategoriasComponent,
     ProductviewComponent,
-    ChequiarComponent
+    ChatViewComponent,
+    ChequiarComponent,
+    ChatComponent
   ],
   entryComponents: [
   ],
