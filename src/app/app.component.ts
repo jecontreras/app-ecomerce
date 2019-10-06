@@ -18,7 +18,7 @@ export class AppComponent {
     },
     {
       title: 'Notificaciones',
-      url: '/product',
+      url: '/notificacion',
       icon: 'notifications-outline'
     },
     {
@@ -40,7 +40,7 @@ export class AppComponent {
     },
     {
       title: 'Subastas',
-      url: '/chat',
+      url: '/subastas',
       icon: 'hammer'
     },
     {

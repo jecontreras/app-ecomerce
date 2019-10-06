@@ -24,6 +24,33 @@
 <ion-content>
   <ion-list>
     <ion-list-header>
+      Conversacion {{ data.username || 'Andres'}}
+    </ion-list-header>
+    <ion-item *ngFor="let item of list_mensajes" no-lines>
+      <!-- <div class="chat-status" text-center *ngIf="chat.type==='join'||chat.type==='exit';else message">
+        <span class="chat-date">{{chat.sendDate | date:'short'}}</span>
+        <span class="chat-content-center">{{chat.message}}</span>
+      </div> -->
+      <ion-content #message>
+        <div class="chat-message" text-right *ngIf="item.emisor.id === 2">
+          <div class="right-bubble">
+            <span class="msg-name">Yo</span>
+            <span class="msg-date">{{item.creado | date:'short'}}</span>
+            <p text-wrap>{{item.mensaje}}</p>
+          </div>
+        </div>
+        <div class="chat-message" text-left *ngIf="item.reseptor.id === 1">
+          <div class="left-bubble">
+            <span class="msg-name">{{item.user}}</span>
+            <span class="msg-date">{{item.creado | date:'short'}}</span>
+            <p text-wrap>{{item.mensaje}}</p>
+          </div>
+        </div>
+      </ion-content>
+    </ion-item>
+  </ion-list>
+  <!-- <ion-list>
+    <ion-list-header>
       Conversacion recientes
     </ion-list-header>
     <ion-item *ngFor="let item of list_mensajes">
@@ -36,7 +63,7 @@
         </ion-title>
       </ion-label>
     </ion-item>
-  </ion-list>
+  </ion-list> -->
 </ion-content>
 <ion-footer>
   <ion-toolbar>
@@ -44,10 +71,10 @@
       <ion-grid>
         <ion-row>
           <ion-col size="8">
-              <ion-input formControlName="mensaje" placeholder="Escriba un mensaje"></ion-input>
+            <ion-input formControlName="mensaje" placeholder="Escriba un mensaje"></ion-input>
           </ion-col>
           <ion-col size="4">
-              <ion-button color="primary" type="submit">Enviar</ion-button>
+            <ion-button color="primary" type="submit">Enviar</ion-button>
           </ion-col>
         </ion-row>
       </ion-grid>

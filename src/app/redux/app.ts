@@ -80,12 +80,12 @@ export function appReducer(state: any = APP, action: _action.actions) {
         }
         break;
         case 'delete': {
-          let idx = _.findIndex(state.mensajes, ['id', action.payload['id']]);
+          let idx = _.findIndex(state.mensajes, ['emisor', action.payload['emisor']]);
           if(idx >-1){
             state.mensajes.splice(idx, 1);
             
-            return local_Storage(state);
           }
+          return local_Storage(state);
         }
         break;
         default:
@@ -116,8 +116,8 @@ export function appReducer(state: any = APP, action: _action.actions) {
           if(idx >-1){
             state.notificaciones.splice(idx, 1);
             
-            return local_Storage(state);
           }
+          return local_Storage(state);
         }
         break;
         default:
@@ -148,8 +148,8 @@ export function appReducer(state: any = APP, action: _action.actions) {
           if(idx >-1){
             state.comentarios.splice(idx, 1);
             
-            return local_Storage(state);
           }
+          return local_Storage(state);
         }
         break;
         default:

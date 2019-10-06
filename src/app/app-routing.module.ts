@@ -6,6 +6,8 @@ import { ProductviewComponent } from './component/productview/productview.compon
 import { ChequiarComponent } from './component/chequiar/chequiar.component';
 import { ChatComponent } from './component/chat/chat.component';
 import { ChatViewComponent } from './component/chat-view/chat-view.component';
+import { SubastasComponent } from './component/subastas/subastas.component';
+import { NotificacionesComponent } from './component/notificaciones/notificaciones.component';
 
 const routes: Routes = [
   {
@@ -58,6 +60,14 @@ const routes: Routes = [
   {
     path: 'chat_view/:id',
     component: ChatViewComponent
+  },
+  {
+    path: 'notificacion',
+    component: NotificacionesComponent
+  },
+  {
+    path: 'subastas',
+    component: SubastasComponent
   },
 
   { path: 'producto', loadChildren: './dialog/form/producto/producto.module#ProductoPageModule' }

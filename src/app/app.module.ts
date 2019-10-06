@@ -23,6 +23,8 @@ import { ProductviewComponent } from './component/productview/productview.compon
 import { ChequiarComponent } from './component/chequiar/chequiar.component';
 import { ChatComponent } from './component/chat/chat.component';
 import { ChatViewComponent } from './component/chat-view/chat-view.component';
+import { NotificacionesComponent } from './component/notificaciones/notificaciones.component';
+import { SubastasComponent } from './component/subastas/subastas.component';
 
 
 @NgModule({
@@ -32,6 +34,8 @@ import { ChatViewComponent } from './component/chat-view/chat-view.component';
     CategoriasComponent,
     ProductviewComponent,
     ChatViewComponent,
+    NotificacionesComponent,
+    SubastasComponent,
     ChequiarComponent,
     ChatComponent
   ],
