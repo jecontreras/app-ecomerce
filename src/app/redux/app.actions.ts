@@ -7,6 +7,7 @@ export let NOTIFICACIONES   = '[App] Notificaciones';
 export let COMENTARIOS      = '[App] Comentarios';
 export let COMPRAS          = '[App] Compras';
 export let CART             = '[App] Cart';
+export let USER             = '[App] User';
 
 
 export class NameappAction implements Action {
@@ -35,9 +36,15 @@ export class CartAction implements Action {
     constructor( public payload: object,  public opt: string){}
 }
 
+export class UserAction implements Action {
+    readonly type = USER;
+    constructor( public payload: object,  public opt: string){}
+}
+
 export type actions = NameappAction         |
                       ArticulosAction       |
                       MensajesAction        |
                       NotificacionesAction  |
                       ComprasAction         |
-                      CartAction    ;
+                      CartAction            |
+                      UserAction            ;

@@ -22,6 +22,9 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="get_chat($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-list>
     <ion-list-header>
       Conversacion {{ data.username || 'Andres'}}
@@ -32,16 +35,16 @@
         <span class="chat-content-center">{{chat.message}}</span>
       </div> -->
       <ion-content #message>
-        <div class="chat-message" text-right *ngIf="item.emisor.id === 2">
+        <div class="chat-message" text-right *ngIf="item.emisor.id === '5d24414039c3ae3544290008'">
           <div class="right-bubble">
             <span class="msg-name">Yo</span>
             <span class="msg-date">{{item.creado | date:'short'}}</span>
             <p text-wrap>{{item.mensaje}}</p>
           </div>
         </div>
-        <div class="chat-message" text-left *ngIf="item.reseptor.id === 1">
+        <div class="chat-message" text-left *ngIf="item.reseptor.id === '5d63cb01b2e0cd16e81c39c0'">
           <div class="left-bubble">
-            <span class="msg-name">{{item.user}}</span>
+            <span class="msg-name">{{item.reseptor.username}}</span>
             <span class="msg-date">{{item.creado | date:'short'}}</span>
             <p text-wrap>{{item.mensaje}}</p>
           </div>

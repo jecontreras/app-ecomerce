@@ -11,7 +11,8 @@ let APP = {
     comentarios: Array(),
     compras: Array(),
     cart: Array(),
-    favorito: Object()
+    favorito: Object(),
+    user: Object()
 };
 export function appReducer(state: any = APP, action: _action.actions) {
   if(JSON.parse(localStorage.getItem('APP'))) state = JSON.parse(localStorage.getItem('APP'));
@@ -203,11 +204,30 @@ export function appReducer(state: any = APP, action: _action.actions) {
         }
         break;
         case 'delete': 
-        let idx = _.findIndex(state.comentarios, ['id', action.payload['id']]);
+        let idx = _.findIndex(state.cart, ['id', action.payload['id']]);
           if(idx >-1){
             state.cart.splice(idx, 1);
             return local_Storage(state);
           }
+        break;
+      }
+    }
+    break;
+    case _action.USER: {
+      switch(action.opt) {
+        case 'post' :
+          if(!state.user) state.user = {};
+            state.user = action.payload;
+            return local_Storage(state);
+        break;
+        case 'put': {
+          state.user = action.payload;
+          return local_Storage(state);
+        }
+        break;
+        case 'delete': 
+          state.user = {};
+          return local_Storage(state);
         break;
       }
     }

@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Store } from '@ngrx/store';
+import { USER } from './redux/interfax/user';
 
 @Component({
   selector: 'app-root',
@@ -49,13 +51,20 @@ export class AppComponent {
       icon: 'contacts'
     }
   ]
-
+  public data:any = {};
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private _store: Store<USER>,
   ) {
     this.initializeApp();
+
+    this._store.select("name")
+    .subscribe((store:any)=>{
+      console.log(store);
+      this.data = store.user;
+    });
   }
 
   initializeApp() {

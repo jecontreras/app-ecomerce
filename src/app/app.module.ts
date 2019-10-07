@@ -25,6 +25,8 @@ import { ChatComponent } from './component/chat/chat.component';
 import { ChatViewComponent } from './component/chat-view/chat-view.component';
 import { NotificacionesComponent } from './component/notificaciones/notificaciones.component';
 import { SubastasComponent } from './component/subastas/subastas.component';
+import { RegistroComponent } from './logeo/registro/registro.component';
+import { LoginComponent } from './logeo/login/login.component';
 
 
 @NgModule({
@@ -37,6 +39,8 @@ import { SubastasComponent } from './component/subastas/subastas.component';
     NotificacionesComponent,
     SubastasComponent,
     ChequiarComponent,
+    LoginComponent,
+    RegistroComponent,
     ChatComponent
   ],
   entryComponents: [

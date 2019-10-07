@@ -2,34 +2,47 @@
   <ion-split-pane>
     <ion-menu type="overlay">
       <ion-header>
-        <ion-toolbar>
-          <ion-title>Menu</ion-title>
+        <ion-toolbar class="ion-padding" color="success">
+          <div>
+            <ion-avatar class="perfil">
+              <img [src]=" data.foto || 'https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y'">
+            </ion-avatar>
+          </div>
+        </ion-toolbar>
+        <ion-toolbar color="success">
+          <ion-buttons slot="secondary">
+            <ion-button class="ion-padding-top">
+              <ion-icon slot="icon-only" name="arrow-dropdown"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <ion-title>
+            <h6>{{ data.name }}</h6>
+          </ion-title>
         </ion-toolbar>
       </ion-header>
-      <ion-toolbar>
-          <ion-grid ion-grid-padding>
-                <ion-row size="12">
-                    <ion-avatar>
-                        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-                    </ion-avatar>
-                </ion-row>
-                <ion-row size="8">
-                    <ion-text>
-                        <h6>Jose Eduardo Contreras</h6>
-                    </ion-text>
-                </ion-row>
-                <ion-row>
-                    <ion-icon name="arrow-dropdown"></ion-icon> 
-                </ion-row>
-          </ion-grid>
-      </ion-toolbar>
+      <!-- <ion-toolbar>
+          <ion-buttons slot="secondary">
+            <ion-button>
+              <ion-icon slot="icon-only" name="contact"></ion-icon>
+            </ion-button>
+            <ion-button>
+              <ion-icon slot="icon-only" name="search"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <ion-title>Default Buttons</ion-title>
+          <ion-buttons slot="primary">
+            <ion-button color="secondary">
+              <ion-icon slot="icon-only" name="more"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar> -->
       <ion-content>
         <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
             <ion-item [routerLink]="[p.url]">
               <ion-icon slot="start" [name]="p.icon"></ion-icon>
               <ion-label>
-                {{p.title}}
+                <h6>{{p.title}}</h6>
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
@@ -37,13 +50,13 @@
             <h6>Mi Tienda</h6>
           </ion-text>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appTienda">
-              <ion-item [routerLink]="[p.url]">
-                <ion-icon slot="start" [name]="p.icon"></ion-icon>
-                <ion-label>
-                  {{p.title}}
-                </ion-label>
-              </ion-item>
-            </ion-menu-toggle>
+            <ion-item [routerLink]="[p.url]">
+              <ion-icon slot="start" [name]="p.icon"></ion-icon>
+              <ion-label>
+                <h6>{{p.title}}</h6>
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
         </ion-list>
       </ion-content>
     </ion-menu>

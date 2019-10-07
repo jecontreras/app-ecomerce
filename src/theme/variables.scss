@@ -3,6 +3,12 @@
 
 /** Ionic CSS Variables **/
 :root {
+  #ion-content-login {
+      --ion-background-color:#10dc60;
+  }
+  .ion-button-login {
+    --ion-color: green;
+  }
   /** primary **/
   --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;

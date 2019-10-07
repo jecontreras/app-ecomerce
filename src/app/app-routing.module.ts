@@ -8,6 +8,8 @@ import { ChatComponent } from './component/chat/chat.component';
 import { ChatViewComponent } from './component/chat-view/chat-view.component';
 import { SubastasComponent } from './component/subastas/subastas.component';
 import { NotificacionesComponent } from './component/notificaciones/notificaciones.component';
+import { RegistroComponent } from './logeo/registro/registro.component';
+import { LoginComponent } from './logeo/login/login.component';
 
 const routes: Routes = [
   {
@@ -19,6 +21,14 @@ const routes: Routes = [
     path: '*',
     redirectTo: 'home',
     pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'registro',
+    component: RegistroComponent
   },
   {
     path: 'home',
@@ -69,7 +79,6 @@ const routes: Routes = [
     path: 'subastas',
     component: SubastasComponent
   },
-
   { path: 'producto', loadChildren: './dialog/form/producto/producto.module#ProductoPageModule' }
 ];
 
