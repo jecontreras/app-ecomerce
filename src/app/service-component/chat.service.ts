@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { FactoryModelService } from '../services/factory.model.service';
 

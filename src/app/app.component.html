@@ -46,9 +46,13 @@
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
-          <ion-text class="ion-padding-top" color="dark">
-            <h6>Mi Tienda</h6>
-          </ion-text>
+          <div class="ion-padding">
+            <ion-item-divider>
+              <ion-text color="dark">
+                <h6>Mi Tienda</h6>
+              </ion-text>
+            </ion-item-divider>
+          </div>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appTienda">
             <ion-item [routerLink]="[p.url]">
               <ion-icon slot="start" [name]="p.icon"></ion-icon>

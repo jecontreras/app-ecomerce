@@ -3,14 +3,14 @@
     <ion-grid>
       <ion-row>
         <ion-col size="2">
-            <ion-buttons>
-              <ion-menu-button></ion-menu-button>
-            </ion-buttons>
+          <ion-buttons>
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
         </ion-col>
         <ion-col size="8">
-            <ion-title  class="ion-padding-top">
-              Lista de Productos
-            </ion-title>
+          <ion-title class="ion-padding-top">
+            Lista de Productos
+          </ion-title>
         </ion-col>
         <ion-col size="2">
           <ion-button (click)="open_form(false)">
@@ -18,24 +18,35 @@
           </ion-button>
         </ion-col>
         <ion-col size="12">
-            <ion-searchbar placeholder="Buscar Producto" [(ngModel)]="searchtxt" (input)="search()"></ion-searchbar>
+          <ion-searchbar placeholder="Buscar Producto" [(ngModel)]="searchtxt" (input)="search()"></ion-searchbar>
         </ion-col>
       </ion-row>
     </ion-grid>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-row>
-    <ion-col size="6" *ngFor="let off of list_product" (click)="open_form(off)">
-      <ion-card>
-        <ion-img [src]=" off.foto "></ion-img>
-        <ion-card-header>
-          <ion-card-subtitle>{{ off.titulo }}</ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          {{ off.tipo }}
-        </ion-card-content>
-      </ion-card>
-    </ion-col>
-  </ion-row>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullMin="100" pullMax="100">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+      <ion-grid *ngIf="disable_list && list_product.length >=1">
+        <ion-row>
+          <ion-col size="6" *ngFor="let off of list_product" (click)="open_form(off)">
+            <ion-card>
+              <ion-img [src]=" off.foto "></ion-img>
+              <ion-card-header>
+                <ion-card-subtitle>{{ off.titulo }}</ion-card-subtitle>
+              </ion-card-header>
+              <ion-card-content>
+                {{ off.tipo }}
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div class="ion-text-center">
+        <ion-title>
+          <h6>No hay datos a mostrar</h6>
+        </ion-title>
+      </div>
 </ion-content>

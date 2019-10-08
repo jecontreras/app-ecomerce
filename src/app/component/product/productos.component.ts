@@ -7,6 +7,8 @@ import { ARTICULOS } from 'src/app/redux/interfax/articulos';
 import { ArticulosAction } from 'src/app/redux/app.actions';
 import { ModalController } from '@ionic/angular';
 import { ProductoPage } from '../../dialog/form/producto/producto.page';
+import { ProductoService } from 'src/app/service-component/producto.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,53 +17,62 @@ import { ProductoPage } from '../../dialog/form/producto/producto.page';
   styleUrls: ['./productos.component.scss'],
 })
 export class ProductosComponent implements OnInit {
-  data:any = {
-    titulo: '',
-    descripcion: '',
-    foto: "https://publihazclick.s3.amazonaws.com/venty/41dd1b07-3589-4e83-a72c-ed42e624622c.jpg",
-    "infodrive1": null,
-    "infodrive2": null,
-    "codigo": "QKSWE",
-    "slug": "as",
-    "tipo": "producto",
-    "megusta": 1,
-    "costovarios": false,
-    "tipoproduct": "producto",
-    "nomegusta": 0,
-    "vistos": 0,
-    "compartidos": 0,
-    "cantidad": 1,
-    "stock": 1,
-    "peso": 1,
-    "estado": "nuevo",
-    "opcion": "activo",
-    "costocompra": 0,
-    "costopromosion": 0,
-    "porcentajedes": 0,
-    "costoventa": 12312,
-    "fechavencimiento": "",
-    "alto": 1,
-    "largo": 1,
-    "ancho": 1,
-  };
-  list_product: any = [];
-
-  searchtxt:any;
+  public list_product: any = [];
+  public data_user:any = {};
+  public searchtxt:any;
+  public ev:any = {};
+  public disable_list:boolean = true;
   constructor(
     private http: HttpClient,
     private _store: Store<ARTICULOS>,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private _producto: ProductoService,
+    private router: Router,
   ) { 
 
     this._store.select("name")
     .subscribe((store:any)=>{
       console.log(store);
+      this.data_user = store.user;
       this.list_product = store.articulos; 
+      // Validar si el Usuario esta Logueado
+      if(Object.keys(this.data_user).length ===0){
+        this.router.navigate(['home']);
+      }
+      if(Object.keys(this.list_product).length === 0){
+        // Get de Productos
+        this.get_productos();
+      }
+      
     });
   }
 
   ngOnInit() {
   }
+  async get_productos(){
+    return this._producto.get({
+      where:{
+        user: this.data_user.id
+      }
+    }).subscribe((articulo:any)=>{
+      articulo = articulo.data;
+      this.list_product = articulo;
+      if(this.ev){
+        this.disable_list = true;
+        this.ev.target.complete();
+      }
+      // for(let row of articulo){
+      //   let accion:any = new ArticulosAction(row, 'post');
+      //   this._store.dispatch(accion);
+      // }
+    });
+  }
+  doRefresh(ev){
+    this.ev = ev;
+    this.disable_list = false;
+    this.get_productos();
+  }
+
   open_form(obj) {
     this.modalCtrl.create({
       component: ProductoPage,
