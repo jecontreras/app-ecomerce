@@ -29,7 +29,13 @@
   <ion-grid>
     <ion-row>
       <ion-col size="12">
-        <ion-img *ngIf="data" [src]="data.foto"></ion-img>
+        <!-- <ion-img *ngIf="data" [src]="data.foto"></ion-img> -->
+        <ion-slides *ngIf="data" pager="true" [options]="slideOptsOne" #slideWithNav
+          (ionSlideDidChange)="SlideDidChange(sliderOne,slideWithNav)">
+          <ion-slide *ngFor="let s of sliderOne.slidesItems">
+            <img src="{{s.image}}">
+          </ion-slide>
+        </ion-slides>
       </ion-col>
       <ion-col size="12">
         <ion-text class="ion-padding-top" color="dark">
@@ -74,22 +80,29 @@
             como favorito</ion-button>
         </div>
       </ion-col>
+      <!-- <ion-col size="12">
+        <div class="ion-text-center">
+          <ion-button color="primary" (click)="submit_cart('agregar')" class="ion-padding ion-text-center">Agregar al carro de compras</ion-button>
+        </div>
+      </ion-col> -->
       <ion-col size="12">
         <div class="ion-text-center">
-          <!-- <ion-button color="primary" (click)="submit_cart('agregar')" class="ion-padding ion-text-center">Agregar al carro de compras</ion-button> -->
         </div>
       </ion-col>
       <ion-col size="12">
-        <div class="ion-text-center">
-        </div>
+        <ion-slides pager="false" [options]="slideOptsTho" #slideWithNav2
+          (ionSlideDidChange)="SlideDidChange(sliderTho,slideWithNav2)">
+          <ion-slide *ngFor="let s of sliderOne.slidesItems">
+            <img src="{{s.image}}">
+          </ion-slide>
+        </ion-slides>
       </ion-col>
       <ion-col size="12">
-        slider
-      </ion-col>
-      <ion-col size="12">
-        <ion-text class="ion-padding-top" color="dark">
-          <h6>Sobre este artículo</h6>
-        </ion-text>
+        <ion-item-divider>
+          <ion-text class="ion-padding-top" color="dark">
+            <h5>Sobre este artículo</h5>
+          </ion-text>
+          </ion-item-divider>
         <ion-row>
           <ion-col *ngFor="let item of data.informacion_articulo">
             <ion-row>
@@ -106,13 +119,21 @@
             </ion-row>
           </ion-col>
         </ion-row>
-        <ion-text class="ion-padding-top" color="dark">
-          <h6>Descripción del articulo</h6>
-          <p>{{ data.descipcion }}</p>
-        </ion-text>
+        <ion-item-divider>
+          <ion-text class="ion-padding-top" color="dark">
+            <h5>Descripción del articulo</h5>
+            <p [innerHtml]="data.descipcion"></p>
+          </ion-text>
+        </ion-item-divider>
       </ion-col>
       <ion-col size="12">
-        Envíos, devoluciones y pagos
+          <ion-item-divider>
+            <ion-text color="dark">
+              <h5>
+                Envíos, devoluciones y pagos
+              </h5>
+            </ion-text>
+          </ion-item-divider>
         <ion-row>
           <ion-col *ngFor="let item of data.list_envios_devoluciones">
             <ion-row>
@@ -131,10 +152,26 @@
         </ion-row>
       </ion-col>
       <ion-col size="12">
-        Articulos patrocinados relacionados
+          <ion-item-divider>
+            <ion-text color="dark">
+              <h5>Articulos patrocinados relacionados</h5>
+            </ion-text>
+          </ion-item-divider>
+        <ion-slides pager="false" [options]="slideOptsThree" #slideWithNav3
+          (ionSlideDidChange)="SlideDidChange(sliderThree,slideWithNav3)">
+          <ion-slide *ngFor="let s of sliderOne.slidesItems">
+            <img src="{{s.image}}">
+          </ion-slide>
+        </ion-slides>
       </ion-col>
       <ion-col size="12">
-        Compra con confianza
+          <ion-item-divider>
+            <ion-text color="dark">
+              <h5>
+                Compra con confianza
+              </h5>
+            </ion-text>
+          </ion-item-divider>
         <ion-list>
           <ion-item *ngFor="let item of list_comentario_vendedor">
             <ion-avatar slot="start">
@@ -152,7 +189,13 @@
 
       </ion-col>
       <ion-col size="12">
-        Sobre este vendedor
+          <ion-item-divider>
+            <ion-text color="dark">
+              <h5>
+                Sobre este vendedor
+              </h5>
+            </ion-text>
+          </ion-item-divider>
         <ion-list>
           <ion-item>
             <ion-avatar slot="start">
@@ -166,21 +209,29 @@
             </ion-label>
           </ion-item>
           <div class="ion-text-center" color="primary">
-            <h6>Más informacion</h6>
+              <ion-item-divider>
+                <ion-text color="dark">
+                  <h5>Más informacion</h5>
+                </ion-text>
+              </ion-item-divider>
           </div>
           <ion-row>
             <ion-col size="10">
-              <ion-text class="ion-padding-top" color="dark">
-                <h6>Otros articulos del vendedor</h6>
-              </ion-text>
+                <ion-item-divider>
+                  <ion-text class="ion-padding-top" color="dark">
+                    <h6>Otros articulos del vendedor</h6>
+                  </ion-text>
+                </ion-item-divider>
             </ion-col>
             <ion-col size="2">
               <ion-icon class="ion-padding-top" name="arrow-dropright"></ion-icon>
             </ion-col>
             <ion-col size="10">
-              <ion-text class="ion-padding-top" color="dark">
-                <h6>Contactar al vendedor</h6>
-              </ion-text>
+                <ion-item-divider>
+                  <ion-text class="ion-padding-top" color="dark">
+                    <h6>Contactar al vendedor</h6>
+                  </ion-text>
+                </ion-item-divider>
             </ion-col>
             <ion-col size="2">
               <ion-icon class="ion-padding-top" name="arrow-dropright"></ion-icon>
@@ -191,17 +242,37 @@
         </ion-list>
       </ion-col>
       <ion-col size="12">
-        otras personas también compraron
+        <ion-item-divider>
+          <ion-text color="dark">
+            <h5>Otras personas también compraron</h5>
+          </ion-text>
+        </ion-item-divider>
+        <ion-slides pager="false" [options]="slideOptsFoor" #slideWithNav4
+          (ionSlideDidChange)="SlideDidChange(sliderFoor,slideWithNav4)">
+          <ion-slide *ngFor="let s of sliderOne.slidesItems">
+            <img src="{{s.image}}">
+          </ion-slide>
+        </ion-slides>
       </ion-col>
       <ion-col size="12">
         <div class="ion-text-center">
           <ion-button color="primary" expand="full" class="ion-padding ion-text-center">Compartir</ion-button>
-          <ion-button color="primary" expand="full" class="ion-padding ion-text-center">Denunciar un articulo</ion-button>
+          <ion-button color="primary" expand="full" class="ion-padding ion-text-center">Denunciar un articulo
+          </ion-button>
         </div>
       </ion-col>
       <ion-col size="12">
-        otras articulos que te pueden gustar
-        
+        <ion-item-divider>
+          <ion-text color="dark">
+            <h5>Otras articulos que te pueden gustar</h5>
+          </ion-text>
+        </ion-item-divider>
+        <ion-slides pager="false" [options]="slideOptsFive" #slideWithNav5
+          (ionSlideDidChange)="SlideDidChange(sliderFive,slideWithNav5)">
+          <ion-slide *ngFor="let s of sliderOne.slidesItems">
+            <img src="{{s.image}}">
+          </ion-slide>
+        </ion-slides>
       </ion-col>
     </ion-row>
   </ion-grid>

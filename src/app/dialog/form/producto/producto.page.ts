@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { IonSlides } from '@ionic/angular';
 import { ModalController, NavParams } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { ARTICULOS } from 'src/app/redux/interfax/articulos';
@@ -17,10 +18,20 @@ export class ProductoPage implements OnInit {
   myForm_product: FormGroup;
 
   public loginForm: FormGroup;
-  url: any = ``;
+  public url: any = ``;
   public clone: any = {};
-  m: any = '';
-  
+  public m: any = '';
+  public data:any = {};
+
+  @ViewChildren('slideWithNav') slideWithNav: IonSlides;
+  sliderOne: any;
+  //Configuration for each Slider
+  slideOptsOne = {
+    initialSlide: 0,
+    slidesPerView: 1,
+    autoplay: true
+  };
+
   constructor(
     private modalCtrl: ModalController,
     private navparams: NavParams,
@@ -34,9 +45,43 @@ export class ProductoPage implements OnInit {
       this.url = this.evento.foto;
       this.myForm_product.patchValue(this.evento);
     }
+
+    this.sliderOne =
+      {
+        isBeginningSlide: true,
+        isEndSlide: false,
+        slidesItems: [
+          {
+            id: 1,
+            image: './assets/imagenes/dilisap1.png'
+          },
+          {
+            id: 2,
+            image: './assets/imagenes/dilisap1.png'
+          },
+          {
+            id: 3,
+            image: './assets/imagenes/dilisap1.png'
+          },
+          {
+            id: 4,
+            image: './assets/imagenes/dilisap1.png'
+          },
+          {
+            id: 5,
+            image: './assets/imagenes/dilisap1.png'
+          }
+        ]
+    };
+    this.data = {
+      list_informacion: [{}],
+      list_envios: [{}],
+      list_galeria: Array()
+    };
   }
 
   ngOnInit() {
+    
     
   }
   view_image(ev){
@@ -103,6 +148,43 @@ export class ProductoPage implements OnInit {
   }
   cerrarModal() {
     this.modalCtrl.dismiss();
+  }
+
+  // TODO FUNCIONES DEL SLIDER
+  //Move to Next slide
+  slideNext(object, slideView) {
+    slideView.slideNext(500).then(() => {
+      this.checkIfNavDisabled(object, slideView);
+    });
+  }
+
+  //Move to previous slide
+  slidePrev(object, slideView) {
+    slideView.slidePrev(500).then(() => {
+      this.checkIfNavDisabled(object, slideView);
+    });;
+  }
+
+  //Method called when slide is changed by drag or navigation
+  SlideDidChange(object, slideView) {
+    this.checkIfNavDisabled(object, slideView);
+  }
+
+  //Call methods to check if slide is first or last to enable disbale navigation  
+  checkIfNavDisabled(object, slideView) {
+    this.checkisBeginning(object, slideView);
+    this.checkisEnd(object, slideView);
+  }
+
+  checkisBeginning(object, slideView) {
+    slideView.isBeginning().then((istrue) => {
+      if(object)object.isBeginningSlide = istrue;
+    });
+  }
+  checkisEnd(object, slideView) {
+    slideView.isEnd().then((istrue) => {
+      if(object)object.isEndSlide = istrue;
+    });
   }
 
 }

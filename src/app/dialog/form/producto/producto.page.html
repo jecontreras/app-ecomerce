@@ -11,15 +11,18 @@
 </ion-header>
 
 <ion-content>
+    <ion-list>
+        <ion-item>
+            <ion-slides pager="true" [options]="slideOptsOne" #slideWithNav
+                (ionSlideDidChange)="SlideDidChange(sliderOne,slideWithNav)">
+                <ion-slide *ngFor="let s of sliderOne.slidesItems">
+                    <img src="{{s.image}}">
+                </ion-slide>
+            </ion-slides>
+        </ion-item>
+    </ion-list>
     <form [formGroup]="myForm_product">
         <ion-list>
-            <ion-item>
-                <!-- <ion-icon name="at" item-start></ion-icon> -->
-                <ion-img [src]="this.url"></ion-img>
-                <ion-label position="floating">Foto</ion-label>
-                <ion-input (change)="view_image($event)" formControlName="foto" type="file">
-                </ion-input>
-            </ion-item>
             <ion-item>
                 <!-- <ion-icon name="at" item-start></ion-icon> -->
                 <ion-label position="floating">Codigo</ion-label>
@@ -60,43 +63,81 @@
         <div padding>
         </div>
     </form>
-
+    <div class="ion-padding">
+        <ion-toolbar>
+            <ion-text color="dark" slot="primary">
+                <h5> Informacion del Articulo </h5>
+            </ion-text>
+            <ion-buttons slot="primary">
+                <ion-button (click)="data.list_informacion.push({})">
+                    <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+        </ion-toolbar>
+        <ion-list>
+            <ion-item *ngFor="let item of data.list_informacion">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col size="12">
+                            <ion-label position="floating">Titulo de la informacion</ion-label>
+                            <ion-input [(ngModel)]="item.key" type="text" placeholder="titulo"></ion-input>
+                        </ion-col>
+                        <ion-col size="12">
+                            <ion-label position="floating">Descripcion de la Informacion</ion-label>
+                            <ion-input [(ngModel)]="item.value" type="text" placeholder="Descripcion"></ion-input>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+        </ion-list>
+    </div>
+    <div class="ion-padding">
+        <ion-toolbar>
+            <ion-text color="dark" slot="primary">
+                <h5> Informacion Envíos, devoluciones y pagos </h5>
+            </ion-text>
+            <ion-buttons slot="primary">
+                <ion-button (click)="data.list_envios.push({})">
+                    <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+        </ion-toolbar>
+        <ion-list>
+            <ion-item *ngFor="let item of data.list_envios">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col size="12">
+                            <ion-label position="floating">Titulo del Envio</ion-label>
+                            <ion-input [(ngModel)]="item.key" type="text" placeholder="titulo"></ion-input>
+                        </ion-col>
+                        <ion-col size="12">
+                            <ion-label position="floating">Descripcion del Envio</ion-label>
+                            <ion-input [(ngModel)]="item.value" type="text" placeholder="Descripcion"></ion-input>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+        </ion-list>
+    </div>
     <div>
+        <ion-toolbar>
+            <ion-text color="dark" slot="primary">
+                <h5> Galeria </h5>
+            </ion-text>
+            <ion-buttons slot="primary">
+                <ion-button>
+                    <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+        </ion-toolbar>
         <ion-grid>
             <ion-row>
-                <ion-col size="12">
-                    <ion-list>
-                        <ion-item>
-                            <ion-label position="floating">Subir Fotos</ion-label>
-                            <ion-input type="file"></ion-input>
-                        </ion-item>
-                    </ion-list>
-                </ion-col>
-                <ion-col>
-                    <ion-img
-                        [src]="'https://publihazclick.s3.amazonaws.com/venty/41dd1b07-3589-4e83-a72c-ed42e624622c.jpg'">
-                    </ion-img>
-                </ion-col>
-                <ion-col>
-                    <ion-img
-                        [src]="'https://publihazclick.s3.amazonaws.com/venty/41dd1b07-3589-4e83-a72c-ed42e624622c.jpg'">
-                    </ion-img>
-                </ion-col>
-                <ion-col>
-                    <ion-img
-                        [src]="'https://publihazclick.s3.amazonaws.com/venty/41dd1b07-3589-4e83-a72c-ed42e624622c.jpg'">
-                    </ion-img>
-                </ion-col>
-                <ion-col>
-                    <ion-img
-                        [src]="'https://publihazclick.s3.amazonaws.com/venty/41dd1b07-3589-4e83-a72c-ed42e624622c.jpg'">
-                    </ion-img>
+                <ion-col size="6" *ngFor="let item of data.list_galeria">
+
                 </ion-col>
             </ion-row>
         </ion-grid>
     </div>
-
-
 
 
 </ion-content>
