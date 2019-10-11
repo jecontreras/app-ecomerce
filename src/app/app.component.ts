@@ -63,7 +63,7 @@ export class AppComponent {
     this._store.select("name")
     .subscribe((store:any)=>{
       console.log(store);
-      this.data = store.user;
+      this.data = store.user || {};
     });
   }
 
