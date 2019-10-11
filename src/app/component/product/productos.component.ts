@@ -60,7 +60,9 @@ export class ProductosComponent implements OnInit {
       this.list_product = articulo;
       if(this.ev){
         this.disable_list = true;
-        this.ev.target.complete();
+        if(this.ev.target){
+          this.ev.target.complete();
+        }
       }
       // for(let row of articulo){
       //   let accion:any = new ArticulosAction(row, 'post');

@@ -17,7 +17,7 @@ export class ProductoService {
     return this._model.query('articulo', query);
   }
   saved (query: any){
-    return this._model.create('articulo', query);
+    return this._model.create('articulo/saved', query);
   }
   edit(query:any){
     return this._model.update('articulo', query.id, query);

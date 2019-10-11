@@ -20,6 +20,18 @@
                 </ion-slide>
             </ion-slides>
         </ion-item>
+        <div>
+            <ion-toolbar>
+                <ion-text color="dark" slot="primary">
+                    <h5> Galeria </h5>
+                </ion-text>
+                <ion-buttons slot="primary">
+                    <ion-button (click)="abrirGaleria()">
+                        <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
+            </ion-toolbar>
+        </div>
     </ion-list>
     <form [formGroup]="myForm_product">
         <ion-list>
@@ -118,25 +130,6 @@
                 </ion-grid>
             </ion-item>
         </ion-list>
-    </div>
-    <div>
-        <ion-toolbar>
-            <ion-text color="dark" slot="primary">
-                <h5> Galeria </h5>
-            </ion-text>
-            <ion-buttons slot="primary">
-                <ion-button>
-                    <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
-                </ion-button>
-            </ion-buttons>
-        </ion-toolbar>
-        <ion-grid>
-            <ion-row>
-                <ion-col size="6" *ngFor="let item of data.list_galeria">
-
-                </ion-col>
-            </ion-row>
-        </ion-grid>
     </div>
 
 
