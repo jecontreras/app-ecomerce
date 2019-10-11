@@ -26,11 +26,17 @@
 </ion-header>
 
 <ion-content>
-  <ion-segment>
-    <ion-segment-button checked *ngFor="let categori of list_categoria">
-      <ion-label>{{ categori.titulo }}</ion-label>
-    </ion-segment-button>
-  </ion-segment>
+  <ion-slides pager="false" [options]="slideOptsOne" #slideWithNav
+    (ionSlideDidChange)="SlideDidChange(sliderOne,slideWithNav)">
+    <ion-slide *ngFor="let s of sliderOne.slidesItems">
+      <!-- <img src="./assets/imagenes/dilisap1.png"> -->
+      <ion-segment>
+        <ion-segment-button checked>
+            <ion-label>{{ s.titulo }}</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-slide>
+  </ion-slides>
   <ion-grid *ngFor="let item of listhome">
     <ion-row>
       <ion-col>

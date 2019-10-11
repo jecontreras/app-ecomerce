@@ -44,7 +44,7 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-      <div class="ion-text-center">
+      <div class="ion-text-center" *ngIf="list_product.length === 0">
         <ion-title>
           <h6>No hay datos a mostrar</h6>
         </ion-title>

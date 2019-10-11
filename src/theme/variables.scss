@@ -9,6 +9,16 @@
   .ion-button-login {
     --ion-color: green;
   }
+  .prev-icon-custom{
+    --background: url(../assets/imagenes/dilisap1.png) 0 0/100% 100% no-repeat;
+  }
+  .prev-icon-custom.disabled{
+      opacity: 0.4;
+      cursor: default;
+  }
+  .next-icon-custom{
+      --background: url(../assets/imagenes/dilisap1.png) 0 0/100% 100% no-repeat;
+  }
   /** primary **/
   --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;

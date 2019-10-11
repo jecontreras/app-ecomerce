@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { IonSlides } from '@ionic/angular';
 import { ModalController, NavParams } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { ARTICULOS } from 'src/app/redux/interfax/articulos';
 import { ArticulosAction } from 'src/app/redux/app.actions';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
+import { ProductoService } from 'src/app/service-component/producto.service';
+import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker/ngx';
 
 @Component({
   selector: 'app-producto',
@@ -17,16 +20,28 @@ export class ProductoPage implements OnInit {
   myForm_product: FormGroup;
 
   public loginForm: FormGroup;
-  url: any = ``;
+  public url: any = ``;
   public clone: any = {};
-  m: any = '';
-  
+  public m: any = '';
+  public data:any = {};
+
+  @ViewChildren('slideWithNav') slideWithNav: IonSlides;
+  sliderOne: any;
+  //Configuration for each Slider
+  slideOptsOne = {
+    initialSlide: 0,
+    slidesPerView: 1,
+    autoplay: true
+  };
+
   constructor(
     private modalCtrl: ModalController,
     private navparams: NavParams,
     private _store: Store<ARTICULOS>,
     public formBuilder: FormBuilder,
-    public toastController: ToastController
+    public toastController: ToastController,
+    private _Articulo: ProductoService,
+    private imagePicker: ImagePicker
   ) { 
     this.myForm_product = this.createMyForm();
     this.evento = this.navparams.get('obj');
@@ -34,6 +49,39 @@ export class ProductoPage implements OnInit {
       this.url = this.evento.foto;
       this.myForm_product.patchValue(this.evento);
     }
+
+    this.sliderOne =
+      {
+        isBeginningSlide: true,
+        isEndSlide: false,
+        slidesItems: [
+          {
+            id: 1,
+            image: './assets/imagenes/dilisap1.png'
+          },
+          {
+            id: 2,
+            image: './assets/imagenes/dilisap1.png'
+          },
+          {
+            id: 3,
+            image: './assets/imagenes/dilisap1.png'
+          },
+          {
+            id: 4,
+            image: './assets/imagenes/dilisap1.png'
+          },
+          {
+            id: 5,
+            image: './assets/imagenes/dilisap1.png'
+          }
+        ]
+    };
+    this.data = {
+      list_informacion: [{}],
+      list_envios: [{}],
+      list_galeria: Array()
+    };
   }
 
   ngOnInit() {
@@ -54,26 +102,30 @@ export class ProductoPage implements OnInit {
     var result=e.target.result;
   }
 
+  abrirGaleria(){
+
+    let options: ImagePickerOptions = {
+      maximumImagesCount: 3
+    };
+    this.imagePicker.getPictures(options).then((results) => {
+      for (var i = 0; i < results.length; i++) {
+          console.log('Image URI: ' + results[i]);
+      }
+    }, (err) => { });
+  }
+
+
   createMyForm(){
     return this.formBuilder.group({
-      titulo: ['', Validators.required],
-      descripcion: ['', Validators.required],
-      foto: ['https://publihazclick.s3.amazonaws.com/venty/41dd1b07-3589-4e83-a72c-ed42e624622c.jpg', Validators.required],
+      "titulo": ['', Validators.required],
+      "descripcion": ['', Validators.required],
       "codigo": [this.codigo(), Validators.required],
       "slug": ['', Validators.required],
-      "tipo": ['producto', Validators.required],
-      "costovarios": [false, Validators.required],
-      "tipoproduct": ['producto', Validators.required],
       "cantidad": [0, Validators.required],
       "peso": [0, Validators.required],
       "estado": ['nuevo', Validators.required],
-      "opcion": ['activo', Validators.required],
       "costopromosion": [0, Validators.required],
       "costoventa": [0, Validators.required],
-      "alto": [0, Validators.required],
-      "largo": [0, Validators.required],
-      "ancho": [0, Validators.required],
-      "id": [this.codigo(), Validators.required]
     });
   }
   codigo(){
@@ -81,11 +133,16 @@ export class ProductoPage implements OnInit {
   }
   submit(){
     let data:any = this.myForm_product.value;
-    data.comentario = [];
-    data.informacion_articulo = [];
-    let accion:any = new ArticulosAction(data, 'post');
-    this._store.dispatch(accion);
-    this.myForm_product = this.createMyForm();
+    data.list_informacion = this.data.list_informacion;
+    data.list_envios = this.data.list_envios;
+    data.list_galeria = this.data.list_galeria;
+    this._Articulo.saved(data)
+    .subscribe((res:any)=>{
+      console.log("*********",res);
+      // let accion:any = new ArticulosAction(res, 'post');
+      // this._store.dispatch(accion);
+      this.myForm_product = this.createMyForm();
+    });
   }
 
   async editar(){
@@ -103,6 +160,43 @@ export class ProductoPage implements OnInit {
   }
   cerrarModal() {
     this.modalCtrl.dismiss();
+  }
+
+  // TODO FUNCIONES DEL SLIDER
+  //Move to Next slide
+  slideNext(object, slideView) {
+    slideView.slideNext(500).then(() => {
+      this.checkIfNavDisabled(object, slideView);
+    });
+  }
+
+  //Move to previous slide
+  slidePrev(object, slideView) {
+    slideView.slidePrev(500).then(() => {
+      this.checkIfNavDisabled(object, slideView);
+    });;
+  }
+
+  //Method called when slide is changed by drag or navigation
+  SlideDidChange(object, slideView) {
+    this.checkIfNavDisabled(object, slideView);
+  }
+
+  //Call methods to check if slide is first or last to enable disbale navigation  
+  checkIfNavDisabled(object, slideView) {
+    this.checkisBeginning(object, slideView);
+    this.checkisEnd(object, slideView);
+  }
+
+  checkisBeginning(object, slideView) {
+    slideView.isBeginning().then((istrue) => {
+      if(object)object.isBeginningSlide = istrue;
+    });
+  }
+  checkisEnd(object, slideView) {
+    slideView.isEnd().then((istrue) => {
+      if(object)object.isEndSlide = istrue;
+    });
   }
 
 }

@@ -28,6 +28,9 @@ import { SubastasComponent } from './component/subastas/subastas.component';
 import { RegistroComponent } from './logeo/registro/registro.component';
 import { LoginComponent } from './logeo/login/login.component';
 
+// plugin
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
+
 
 @NgModule({
   declarations: [
@@ -65,7 +68,8 @@ import { LoginComponent } from './logeo/login/login.component';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    ImagePicker
   ],
   bootstrap: [AppComponent]
 })
