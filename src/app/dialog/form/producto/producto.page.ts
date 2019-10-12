@@ -139,8 +139,8 @@ export class ProductoPage implements OnInit {
     this._Articulo.saved(data)
     .subscribe((res:any)=>{
       console.log("*********",res);
-      // let accion:any = new ArticulosAction(res, 'post');
-      // this._store.dispatch(accion);
+      let accion:any = new ArticulosAction(res, 'post');
+      this._store.dispatch(accion);
       this.myForm_product = this.createMyForm();
     });
   }

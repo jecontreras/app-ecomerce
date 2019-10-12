@@ -64,10 +64,10 @@ export class ProductosComponent implements OnInit {
           this.ev.target.complete();
         }
       }
-      // for(let row of articulo){
-      //   let accion:any = new ArticulosAction(row, 'post');
-      //   this._store.dispatch(accion);
-      // }
+      for(let row of articulo){
+        let accion:any = new ArticulosAction(row, 'post');
+        this._store.dispatch(accion);
+      }
     });
   }
   doRefresh(ev){
