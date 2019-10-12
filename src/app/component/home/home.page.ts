@@ -22,7 +22,13 @@ export class HomePage {
   slideOptsOne = {
     initialSlide: 0,
     slidesPerView: 3,
-    autoplay: true
+    autoplay: false
+  };
+
+  slideOptsTho = {
+    initialSlide: 0,
+    slidesPerView: 2,
+    autoplay: false
   };
 
   constructor( 

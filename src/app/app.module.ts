@@ -27,6 +27,7 @@ import { NotificacionesComponent } from './component/notificaciones/notificacion
 import { SubastasComponent } from './component/subastas/subastas.component';
 import { RegistroComponent } from './logeo/registro/registro.component';
 import { LoginComponent } from './logeo/login/login.component';
+import { ListproductComponent } from './component/listproduct/listproduct.component';
 
 // plugin
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
@@ -44,6 +45,7 @@ import { ImagePicker } from '@ionic-native/image-picker/ngx';
     ChequiarComponent,
     LoginComponent,
     RegistroComponent,
+    ListproductComponent,
     ChatComponent
   ],
   entryComponents: [

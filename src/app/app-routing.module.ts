@@ -10,6 +10,7 @@ import { SubastasComponent } from './component/subastas/subastas.component';
 import { NotificacionesComponent } from './component/notificaciones/notificaciones.component';
 import { RegistroComponent } from './logeo/registro/registro.component';
 import { LoginComponent } from './logeo/login/login.component';
+import { ListproductComponent } from './component/listproduct/listproduct.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,10 @@ const routes: Routes = [
   {
     path: 'categoria/:id',
     component: CategoriasComponent
+  },
+  {
+    path: 'listproduct/:id',
+    component: ListproductComponent
   },
   {
     path: 'productoview',

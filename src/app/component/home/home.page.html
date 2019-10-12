@@ -29,10 +29,9 @@
   <ion-slides pager="false" [options]="slideOptsOne" #slideWithNav
     (ionSlideDidChange)="SlideDidChange(sliderOne,slideWithNav)">
     <ion-slide *ngFor="let s of sliderOne.slidesItems">
-      <!-- <img src="./assets/imagenes/dilisap1.png"> -->
       <ion-segment>
         <ion-segment-button checked>
-            <ion-label>{{ s.titulo }}</ion-label>
+          <ion-label>{{ s.titulo }}</ion-label>
         </ion-segment-button>
       </ion-segment>
     </ion-slide>
@@ -51,7 +50,28 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col size="6" *ngFor="let off of item.listado" [routerLink]="['/productoview', off.id]">
+      <ion-col size="12">
+        <ion-slides pager="false" [options]="slideOptsTho" #slideWithNav
+          (ionSlideDidChange)="SlideDidChange(sliderOne,slideWithNav)">
+          <ion-slide *ngFor="let off of item.listado" [routerLink]="['/productoview', off.id]">
+            <ion-row class="ion-padding">
+              <ion-img [src]=" off.foto"></ion-img>
+              <ion-col size="12">
+                <ion-text color="dark">
+                  <h6 class="text">
+                    {{ off.titulo }}
+                  </h6>
+                  <h6 class="text">
+                    {{ off.costopromosion || off.costoventa }}
+                  </h6>
+                  <!-- <p class="text">{{ "Empresa: " + (off.empresa || 'demo')}}</p> -->
+                </ion-text>
+              </ion-col>
+            </ion-row>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+      <!-- <ion-col size="6" *ngFor="let off of item.listado" [routerLink]="['/productoview', off.id]">
         <ion-grid>
           <ion-row>
             <ion-img [src]=" off.foto"></ion-img>
@@ -63,7 +83,7 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-      </ion-col>
+      </ion-col> -->
     </ion-row>
   </ion-grid>
 </ion-content>
