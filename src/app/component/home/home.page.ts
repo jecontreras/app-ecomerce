@@ -5,6 +5,7 @@ import { IonSlides } from '@ionic/angular';
 import { CategoriaService } from 'src/app/service-component/categoria.service';
 import { AppService } from 'src/app/service-component/app.service';
 import { NameappAction } from 'src/app/redux/app.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +16,12 @@ export class HomePage {
   public listado : any = [];
   public listhome: any = [];
   public searchtxt: any = '';
+  public img:any = './assets/imagenes/dilisap1.png';
+
+  public ev:any = {};
+  public disable_list:boolean = true;
+
+  public data_user:any;
 
   @ViewChildren('slideWithNav') slideWithNav: IonSlides;
 
@@ -43,6 +50,7 @@ export class HomePage {
       private _categoria: CategoriaService,
       private _app: AppService,
       private _store: Store<ARTICULOS>,
+      private router: Router
   ) {
     this.init_app();
     this.get_categoria();
@@ -52,11 +60,20 @@ export class HomePage {
     this._store.select("name")
     .subscribe((store:any)=>{
       console.log(store);
+      this.data_user = store.user;
+      // Validar si el Usuario esta Logueado
+      if(Object.keys(this.data_user).length ===0){
+        this.router.navigate(['login']);
+      }
       // if( Object.keys(store.nameapp).length > 0 ) this.relleno_list(store.nameapp);
       if( Object.keys(store.articulos).length > 0 ) this.listado;
     });
   }
-  
+  doRefresh(ev){
+    this.ev = ev;
+    this.disable_list = false;
+    this.get_app();
+  }
   relleno_list(nameapp = {}){
     this.listhome = nameapp;
   }
@@ -66,6 +83,12 @@ export class HomePage {
     .subscribe((res:any)=>{
       res = res.data;
       console.log(res);
+      if(this.ev){
+        this.disable_list = true;
+        if(this.ev.target){
+          this.ev.target.complete();
+        }
+      }
       if( Object.keys(res).length > 0 ) {
         this.data_app = res;
         let accion:any = new NameappAction(res, 'post');

@@ -15,7 +15,7 @@ import { ListproductComponent } from './component/listproduct/listproduct.compon
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {

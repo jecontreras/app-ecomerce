@@ -18,6 +18,8 @@ export class ChatViewComponent implements OnInit {
   public data: any = {};
   public data_user: any = {};
   public id: any;
+  public disable_list:boolean = true;
+  public ev:any;
 
   constructor(
     private _store: Store<MENSAJES>,
@@ -98,15 +100,27 @@ export class ChatViewComponent implements OnInit {
       ];
     }
   }
+  doRefresh(ev){
+    this.ev = ev;
+    this.disable_list = false;
+    this.get_chat();
+  }
   get_chat() {
     return this._chat.get_detallado({
       where: {
-        reseptor: this.id,
-        emisor: this.data_user.id
+        // reseptor: this.id,
+        // emisor: this.data_user.id
       }
     }).subscribe((rta: any) => {
-      console.log(rta);
+      console.log(rta, this.data_user)
+      if(this.ev){
+        this.disable_list = true;
+        if(this.ev.target){
+          this.ev.target.complete();
+        }
+      }
       this.list_mensajes = rta.data;
+      
     });
   }
   create_form() {

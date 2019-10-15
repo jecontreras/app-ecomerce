@@ -1,0 +1,7 @@
+{
+  "appId": "123",
+  "appName": "ecomerce",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www"
+}

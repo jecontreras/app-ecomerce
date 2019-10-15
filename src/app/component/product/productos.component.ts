@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HTTP } from '@ionic-native/http/ngx';
-import { HttpClientModule } from '@angular/common/http';
-import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { ARTICULOS } from 'src/app/redux/interfax/articulos';
 import { ArticulosAction } from 'src/app/redux/app.actions';
@@ -23,7 +20,6 @@ export class ProductosComponent implements OnInit {
   public ev:any = {};
   public disable_list:boolean = true;
   constructor(
-    private http: HttpClient,
     private _store: Store<ARTICULOS>,
     private modalCtrl: ModalController,
     private _producto: ProductoService,

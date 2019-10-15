@@ -1,6 +1,6 @@
 <ion-app>
   <ion-split-pane>
-    <ion-menu type="overlay">
+    <ion-menu side="start" menuId="first">
       <ion-header>
         <ion-toolbar class="ion-padding" color="success">
           <div>
@@ -8,6 +8,7 @@
               <img [src]=" data.foto || 'https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y'">
             </ion-avatar>
           </div>
+          <!-- <button ion-button menuClose (click)="close()">Close Menu</button> -->
         </ion-toolbar>
         <ion-toolbar color="success">
           <ion-buttons slot="secondary">

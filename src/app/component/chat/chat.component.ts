@@ -52,18 +52,18 @@ export class ChatComponent implements OnInit {
   get_chat(){
     let query = {
       where:{
-        or: [
-          {
-            emisor:{
-              contains: this.data_user.id || ''
-            }
-          },
-          {
-            reseptor:{
-              contains: this.data_user.id || ''
-            }
-          },
-        ]
+        // or: [
+        //   {
+        //     emisor:{
+        //       contains: this.data_user.id || ''
+        //     }
+        //   },
+        //   {
+        //     reseptor:{
+        //       contains: this.data_user.id || ''
+        //     }
+        //   },
+        // ]
       },
       sort: 'updatedAt DESC'
     }
