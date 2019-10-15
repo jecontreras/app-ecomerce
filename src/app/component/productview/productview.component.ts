@@ -6,6 +6,7 @@ import { ARTICULOS } from 'src/app/redux/interfax/articulos';
 import * as _ from 'lodash';
 import { CartAction } from 'src/app/redux/app.actions';
 import { ToastController } from '@ionic/angular';
+import { ProductoService } from 'src/app/service-component/producto.service';
 
 @Component({
   selector: 'app-productview',
@@ -14,7 +15,9 @@ import { ToastController } from '@ionic/angular';
 })
 export class ProductviewComponent implements OnInit {
 
-  public data: any = {};
+  public data: any = {
+    user:{}
+  };
   public list_productos: any = [];
 
   @ViewChildren('slideWithNav') slideWithNav: IonSlides;
@@ -60,28 +63,18 @@ export class ProductviewComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private _store: Store<ARTICULOS>,
-    public toastController: ToastController
+    public toastController: ToastController,
+    private _producto: ProductoService
   ) {
     this._store.select("name")
       .subscribe((store: any) => {
         console.log(store);
         this.list_productos = store.articulos;
       });
-
+    this.init();
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      if (params['id'] != null) {
-        this.data = this.list_productos.find(row => row.id == params['id']);
-        this.data.cantida_adquiridad = String(1);
-        if (!this.data.informacion_articulo) this.data.informacion_articulo = [{ key: "none", value: "none" }];
-        if (!this.data.comentario) this.data.comentario = [{ key: "none", value: "none" }];
-        if (!this.data.envios_devoluciones) this.data.envios_devoluciones = [{ key: "none", value: "none" }];
-        if (!this.data.list_comentario_vendedor) this.data.list_comentario_vendedor = [{ username: "pos_r", titulo: "Excelente", comentario: "genial vendedor" }];
-        if (!this.data.user) this.data.user = {};
-      }
-    });
     this.sliderOne =
       {
         isBeginningSlide: true,
@@ -110,6 +103,33 @@ export class ProductviewComponent implements OnInit {
         ]
       };
   }
+  init(){
+    this.route.params.subscribe(params => {
+      if (params['id'] != null) {
+        return this.get_articulo(params.id)
+        .subscribe((rta:any)=>{
+          console.log(rta);
+          this.data = rta.data[0];
+          if(!this.data) return false;
+          this.data.cantida_adquiridad = String(1);
+          if (!this.data.informacion_articulo) this.data.informacion_articulo = [{ key: "none", value: "none" }];
+          if (!this.data.comentario) this.data.comentario = [{ key: "none", value: "none" }];
+          if (!this.data.envios_devoluciones) this.data.envios_devoluciones = [{ key: "none", value: "none" }];
+          if (!this.data.list_comentario_vendedor) this.data.list_comentario_vendedor = [{ username: "pos_r", titulo: "Excelente", comentario: "genial vendedor" }];
+          if (!this.data.user) this.data.user = {};
+        });
+      }
+    });
+  }
+  get_articulo(id:any){
+    return this._producto.get({
+      where: {
+        id: id
+      },
+      limit: 1
+    });
+  }
+
   submit_cart(opt: any) {
     let data = this.data;
     if (!data.cantida_adquiridad) return this.presentToast('Erro por favor agregar una cantidad');;

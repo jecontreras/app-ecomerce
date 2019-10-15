@@ -37,14 +37,13 @@ export class ProductosComponent implements OnInit {
       this.list_product = store.articulos; 
       // Validar si el Usuario esta Logueado
       if(Object.keys(this.data_user).length ===0){
-        this.router.navigate(['home']);
+        this.router.navigate(['login']);
       }
-      if(Object.keys(this.list_product).length === 0){
-        // Get de Productos
-        this.get_productos();
-      }
-      
     });
+    if(Object.keys(this.list_product).length === 0){
+      // Get de Productos
+      this.get_productos();
+    }
   }
 
   ngOnInit() {
@@ -65,8 +64,11 @@ export class ProductosComponent implements OnInit {
         }
       }
       for(let row of articulo){
-        let accion:any = new ArticulosAction(row, 'post');
-        this._store.dispatch(accion);
+        let idx = this.list_product.find(item => item.id == row.id);
+        if(!idx){
+          let accion:any = new ArticulosAction(row, 'post');
+          this._store.dispatch(accion);
+        }
       }
     });
   }

@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { ProductoService } from 'src/app/service-component/producto.service';
 import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker/ngx';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-producto',
@@ -24,6 +25,7 @@ export class ProductoPage implements OnInit {
   public clone: any = {};
   public m: any = '';
   public data:any = {};
+  public data_user:any;
 
   @ViewChildren('slideWithNav') slideWithNav: IonSlides;
   sliderOne: any;
@@ -41,10 +43,22 @@ export class ProductoPage implements OnInit {
     public formBuilder: FormBuilder,
     public toastController: ToastController,
     private _Articulo: ProductoService,
-    private imagePicker: ImagePicker
+    private imagePicker: ImagePicker,
+    private router: Router,
   ) { 
-    this.myForm_product = this.createMyForm();
     this.evento = this.navparams.get('obj');
+
+    this._store.select("name")
+    .subscribe((store:any)=>{
+      console.log(store);
+      this.data_user = store.user;
+      // Validar si el Usuario esta Logueado
+      if(Object.keys(this.data_user).length ===0){
+        this.router.navigate(['login']);
+      }
+    });
+    this.myForm_product = this.createMyForm();
+
     if(this.evento){
       this.url = this.evento.foto;
       this.myForm_product.patchValue(this.evento);
@@ -126,6 +140,7 @@ export class ProductoPage implements OnInit {
       "estado": ['nuevo', Validators.required],
       "costopromosion": [0, Validators.required],
       "costoventa": [0, Validators.required],
+      "user": [ this.data_user.id, Validators.required],
     });
   }
   codigo(){

@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { MENSAJES } from 'src/app/redux/interfax/mensajes';
 import * as _ from 'lodash';
 import { ChatService } from 'src/app/service-component/chat.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-chat-view',
@@ -12,26 +13,41 @@ import { ChatService } from 'src/app/service-component/chat.service';
   styleUrls: ['./chat-view.component.scss'],
 })
 export class ChatViewComponent implements OnInit {
-  public list_mensajes: any = [{ emisor: {} }];
+  public list_mensajes: any = [{ emisor: {}, reseptor:{} }];
   public myForm_chat: FormGroup;
   public data: any = {};
+  public data_user: any = {};
+  public id: any;
 
   constructor(
     private _store: Store<MENSAJES>,
     private _chat: ChatService,
     public formBuilder: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,
   ) {
-
-    this.myForm_chat = this.create_form();
     this._store.select("name")
       .subscribe((store: any) => {
         console.log(store);
-        this.list_mensajes = _.unionBy(this.list_mensajes || [], store.mensajes, 'emisor');
-        this.list_mensajes = _.orderBy(this.list_mensajes, ['creado'], ['asc']);
-      });
+        this.data_user = store.user;
+        if (Object.keys(this.data_user).length === 0) {
+          this.router.navigate(['login']);
+        }
+
+        // this.list_mensajes = _.unionBy(this.list_mensajes || [], store.mensajes, 'emisor');
+        // this.list_mensajes = _.orderBy(this.list_mensajes, ['creado'], ['asc']);
+    });
+    this.route.params.subscribe(params => {
+      if (params['id'] != null) {
+        this.id = params['id'];
+      }
+    });
     this.get_init();
+    this.myForm_chat = this.create_form();
   }
-  ngOnInit() { }
+  ngOnInit() {
+
+  }
 
   get_init() {
     this.get_chat();
@@ -83,9 +99,10 @@ export class ChatViewComponent implements OnInit {
     }
   }
   get_chat() {
-    return this._chat.get({
+    return this._chat.get_detallado({
       where: {
-
+        reseptor: this.id,
+        emisor: this.data_user.id
       }
     }).subscribe((rta: any) => {
       console.log(rta);
@@ -93,16 +110,20 @@ export class ChatViewComponent implements OnInit {
     });
   }
   create_form() {
+    console.log(this.id)
     return this.formBuilder.group({
       mensaje: ['', Validators.required],
-      emisor: ["5d24414039c3ae3544290008", Validators.required],
-      reseptor: ["5d63cb01b2e0cd16e81c39c0", Validators.required],
+      emisor: [this.data_user.id, Validators.required],
+      reseptor: [this.id, Validators.required],
       creado: [new Date(), Validators.required]
     });
   }
   submit_mensaje() {
-    console.log(this.myForm_chat.value);
+    // console.log(this.myForm_chat.value);
     let data = this.myForm_chat.value;
+        data.reseptor = this.id;
+        data.emisor = this.data_user.id;
+    console.log(data);
     return this._chat.saved(data)
       .subscribe((res: any) => {
         console.log(res);
