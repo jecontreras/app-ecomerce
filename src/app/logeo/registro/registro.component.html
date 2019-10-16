@@ -1,5 +1,8 @@
 <ion-header>
-  <ion-toolbar color="success">
+  <ion-toolbar id="ion-content-login">
+    <ion-text color="dark">
+      <h6>Logo</h6>
+    </ion-text>
     <ion-img style="height: 141px;" [src]="'./assets/imagenes/dilisap1.png'"></ion-img>
   </ion-toolbar>
 </ion-header>
@@ -47,7 +50,7 @@
       <ion-button (click)="submit_login()" class=".ion-button-login" color="light">REGISTRARTE</ion-button>
     </div>
     <ion-text class="ion-color-lavel">
-      <h6 [routerLink]="['/login']" >¿Ya tienes cuenta?</h6>
+      <h6 [routerLink]="['/login']">¿Ya tienes cuenta?</h6>
     </ion-text>
   </div>
 </ion-content>

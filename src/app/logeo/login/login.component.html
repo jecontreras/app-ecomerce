@@ -1,5 +1,8 @@
 <ion-header>
-  <ion-toolbar color="success">
+  <ion-toolbar id="ion-content-login">
+    <ion-text color="dark">
+      <h6>Logo</h6>
+    </ion-text>
     <ion-img style="height: 141px;" [src]="'./assets/imagenes/dilisap1.png'"></ion-img>
   </ion-toolbar>
 </ion-header>
@@ -24,7 +27,7 @@
   <br>
   <div class="ion-text-center">
     <div>
-        <ion-button (click)="submit_login()" class=".ion-button-login" color="light">INICIAR SESIÓN</ion-button>
+      <ion-button (click)="submit_login()" class=".ion-button-login" color="light">INICIAR SESIÓN</ion-button>
     </div>
     <ion-text class="ion-color-lavel">
       <h6>¿Olvidaste tu contraseña?</h6>
@@ -32,10 +35,10 @@
   </div>
 </ion-content>
 <ion-footer>
-  <ion-toolbar color="success">
+  <ion-toolbar id="ion-content-login">
     <div class="ion-text-center">
       <div>
-        <ion-button [routerLink]="['/registro']"  class=".ion-button-login" color="light">CREAR CUENTA</ion-button>
+        <ion-button [routerLink]="['/registro']" class=".ion-button-login" color="light">CREAR CUENTA</ion-button>
       </div>
     </div>
   </ion-toolbar>

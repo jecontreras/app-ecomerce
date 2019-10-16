@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">ecomerce</string>
     <string name="title_activity_main">ecomerce</string>
-    <string name="package_name">io.ionic.starter</string>
-    <string name="fileprovider_authority">io.ionic.starter.fileprovider</string>
-    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="package_name">com.company.appname</string>
+    <string name="fileprovider_authority">com.company.appname.fileprovider</string>
+    <string name="custom_url_scheme">com.company.appname</string>
 </resources>
