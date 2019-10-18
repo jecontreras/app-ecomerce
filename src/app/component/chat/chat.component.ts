@@ -50,34 +50,26 @@ export class ChatComponent implements OnInit {
   }
 
   get_chat(){
-    let query = {
+    let query:any = {
       where:{
-        // or: [
-        //   {
-        //     emisor:{
-        //       contains: this.data_user.id || ''
-        //     }
-        //   },
-        //   {
-        //     reseptor:{
-        //       contains: this.data_user.id || ''
-        //     }
-        //   },
-        // ]
+        or:[
+          {emisor: this.data_user.id},
+          {reseptor: this.data_user.id}
+        ]
       },
       sort: 'updatedAt DESC'
     }
     console.log(query)
     return this._chat.get(query)
     .subscribe((rta:any)=>{
-      console.log(rta, this.data_user);
-      this.list_mensajes = rta.data;
-      if(this.ev){
-        this.disable_list = true;
-        if(this.ev.target){
-          this.ev.target.complete();
+      console.log(rta);
+      this.list_mensajes = _.unionBy(this.list_mensajes || [], rta.data, 'id');
+        if(this.ev){
+          this.disable_list = true;
+          if(this.ev.target){
+            this.ev.target.complete();
+          }
         }
-      }
     });
   }
 

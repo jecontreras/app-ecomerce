@@ -141,11 +141,11 @@ export class ChatViewComponent implements OnInit {
     return this._chat.saved(data)
       .subscribe((res: any) => {
         console.log(res);
-        if (res.status === 200) {
-          let accion = new MensajesAction(res.mensaje, 'post');
-          this._store.dispatch(accion);
+        // if (res.status === 200) {
+        //   let accion = new MensajesAction(res.mensaje, 'post');
+        //   this._store.dispatch(accion);
           this.myForm_chat = this.create_form();
-        }
+        // }
       });
 
   }
