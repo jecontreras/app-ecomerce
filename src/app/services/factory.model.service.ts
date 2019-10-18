@@ -29,6 +29,13 @@ export class FactoryModelService {
       this.url = GLOBAL.url;
       this.global = GLOBAL;
       this.handleError = handleError;
+      io.sails.autoConnect = false;
+      console.log(GLOBAL.url);
+      this.sock = io.sails.connect('http://localhost:1337');
+      this.scoket_global();
+      this.sock.on('chat',function(message){
+        console.dir(message);
+    });
   }
 
   conectionSocket(){
@@ -36,14 +43,25 @@ export class FactoryModelService {
     console.log(GLOBAL.url);
     this.sock = io.sails.connect('http://localhost:1337');
     this.scoket_global();
+    this.sock.on('chat',function(message){
+      console.dir(message);
+  });
   }
   
   create(modelo: string, query: any): Observable<Config> {
-    return this._http.post<Config>(this.url + modelo, query).pipe(
-      // map((data:any)=> data.valor),
-      // retry(3),
-      catchError(this.handleError)
-    );
+    return this.sock.post(this.url + modelo, query, function serverResponded (body, JWR) {
+      //all we're doing now is subscribing to a room
+      console.dir(body);
+      return body;
+      })
+    // .pipe(
+    //   map((data:any)=> {
+    //     console.log(data);
+    //     return data;
+    //   }),
+    //   // retry(3),
+    //   catchError(this.handleError)
+    // );
   }
   
   update(modelo: string, referencia: string, query: any): Observable<Config> {

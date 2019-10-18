@@ -139,14 +139,14 @@ export class ChatViewComponent implements OnInit {
         data.emisor = this.data_user.id;
     console.log(data);
     return this._chat.saved(data)
-      .subscribe((res: any) => {
-        console.log(res);
-        // if (res.status === 200) {
-        //   let accion = new MensajesAction(res.mensaje, 'post');
-        //   this._store.dispatch(accion);
-          this.myForm_chat = this.create_form();
-        // }
-      });
+      // .subscribe((res: any) => {
+      //   console.log(res);
+      //   // if (res.status === 200) {
+      //   //   let accion = new MensajesAction(res.mensaje, 'post');
+      //   //   this._store.dispatch(accion);
+      //     this.myForm_chat = this.create_form();
+      //   // }
+      // });
 
   }
   codigo() {

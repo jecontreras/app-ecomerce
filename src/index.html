@@ -19,11 +19,10 @@
 </head>
 
 <body>
-    <script type="text/javascript" src="http://localhost:1337/dependencies/sails.io.js"></script>
+    <script type="text/javascript" autoConnect="false" src="http://localhost:1337/dependencies/sails.io.js"></script>
     <script type="text/javascript">
-        // sock.on('message', function (json) {
-        //     console.log("hep");
-        // });
+        // io.sails.autoConnect = false;
+        // var sock = io.sails.connect('http://localhost:1337');
         // sock.get('/chat/iniciar_chat',{
         //     mensaje: "hola socket",
         //     emisor: "5da007e1aac35d04f425b915",
