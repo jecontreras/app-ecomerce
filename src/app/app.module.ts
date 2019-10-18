@@ -31,6 +31,7 @@ import { ListproductComponent } from './component/listproduct/listproduct.compon
 
 // plugin
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { FactoryModelService } from './services/factory.model.service';
 
 
 @NgModule({
@@ -75,4 +76,11 @@ import { ImagePicker } from '@ionic-native/image-picker/ngx';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+
+    constructor(
+      private _mode: FactoryModelService
+    ){
+      this._mode.conectionSocket();
+    }
+}
