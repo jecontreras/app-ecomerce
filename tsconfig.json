@@ -14,10 +14,9 @@
     "typeRoots": [
       "node_modules/@types"
     ],
-    "lib": [
-      "es2018",
-      "dom"
-    ]
+    "paths": {
+      "rxjs": ["node_modules/rxjs"]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

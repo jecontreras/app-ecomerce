@@ -7,6 +7,7 @@ import { retry, catchError, map } from 'rxjs/operators';
 import { handleError } from './errores';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'lodash';
+import { async } from '@angular/core/testing';
 declare var io: any;
 
 @Injectable({
@@ -45,23 +46,30 @@ export class FactoryModelService {
     this.scoket_global();
     this.sock.on('chat',function(message){
       console.dir(message);
-  });
+    }); 
   }
-  
+  async createsocket(modelo: string, query: any){
+    return new Promise(async(promesa)=>{
+      await this.sock.post(this.url + modelo, query, (rta)=>{
+        console.log(rta);
+        promesa(rta)
+      });
+      promesa("lalal");
+    })
+    
+  }
   create(modelo: string, query: any): Observable<Config> {
-    return this.sock.post(this.url + modelo, query, function serverResponded (body, JWR) {
-      //all we're doing now is subscribing to a room
-      console.dir(body);
-      return body;
-      })
-    // .pipe(
-    //   map((data:any)=> {
-    //     console.log(data);
-    //     return data;
-    //   }),
-    //   // retry(3),
-    //   catchError(this.handleError)
-    // );
+    var m = this.createsocket(modelo, query)
+    console.log(m);
+    return this._http.post(this.url + modelo, query)
+    .pipe(
+      map((data:any)=> {
+        console.log(data);
+        return data;
+      }),
+      // retry(3),
+      catchError(this.handleError)
+    );
   }
   
   update(modelo: string, referencia: string, query: any): Observable<Config> {
