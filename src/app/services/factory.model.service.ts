@@ -39,8 +39,11 @@ export class FactoryModelService {
   }
   
   create(modelo: string, query: any): Observable<Config> {
-    return this._http.post<Config>(this.url + modelo, query).pipe(
-      // map((data:any)=> data.valor),
+    return this.sock.post(this.url + modelo, query).pipe(
+      map((data:any)=> { 
+         this
+         return data
+      }),
       // retry(3),
       catchError(this.handleError)
     );
