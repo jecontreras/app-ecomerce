@@ -31,10 +31,6 @@ export class ChatViewComponent implements OnInit {
     private route: ActivatedRoute,
     private _model: FactoryModelService
   ) {
-    this._model.sock.on('chat/iniciar_chat',(data:any)=>{
-      console.log(data);
-      this.count = data.data.mensaje;
-    });
     this._store.select("name")
       .subscribe((store: any) => {
         // console.log(store);
@@ -43,10 +39,10 @@ export class ChatViewComponent implements OnInit {
           this.router.navigate(['login']);
         }
         if(Object.keys(store.mensajes).length >0) {
-          this.list_mensajes = store.mensajes;
+          // this.list_mensajes = store.mensajes;
+          this.list_mensajes = _.unionBy(this.list_mensajes || [], store.mensajes, 'id');
+          // this.list_mensajes = _.orderBy(this.list_mensajes, ['createdAt'], ['asc']);
         }
-        // this.list_mensajes = _.unionBy(this.list_mensajes || [], store.mensajes, 'id');
-        // this.list_mensajes = _.orderBy(this.list_mensajes, ['createdAt'], ['asc']);
     });
     this.route.params.subscribe(params => {
       if (params['id'] != null) {
@@ -55,6 +51,16 @@ export class ChatViewComponent implements OnInit {
     });
     this.get_init();
     this.myForm_chat = this.create_form();
+
+    let
+      init: any = 0
+    ;
+    let interval = setInterval(() => {
+      init += 1;
+      if (init === 5) {
+        init = 0;
+      }
+    }, 1000);
   }
   ngOnInit() {
 
@@ -62,7 +68,7 @@ export class ChatViewComponent implements OnInit {
 
   get_init() {
     this.get_chat();
-    if (this.list_mensajes.length === 1) {
+    /*if (this.list_mensajes.length === 1) {
       this.list_mensajes = [
         {
           emisor: {
@@ -79,7 +85,7 @@ export class ChatViewComponent implements OnInit {
           mensaje: "hola andres"
         },
       ];
-    }
+    }*/
   }
   doRefresh(ev){
     this.ev = ev;
@@ -89,23 +95,23 @@ export class ChatViewComponent implements OnInit {
   get_chat() {
     return this._chat.get_detallado({
       where: {
-        // reseptor: this.id,
-        // emisor: this.data_user.id
+        reseptor: this.id,
+        emisor: this.data_user.id
       }
     }).subscribe((rta: any) => {
-      console.log(rta, this.data_user)
+      // console.log(rta, this.data_user)
       if(this.ev){
         this.disable_list = true;
         if(this.ev.target){
           this.ev.target.complete();
         }
       }
-      this.list_mensajes = rta.data;
+      this.list_mensajes = rta.mensaje;
       
     });
   }
   create_form() {
-    console.log(this.id)
+    // console.log(this.id)
     return this.formBuilder.group({
       mensaje: ['', Validators.required],
       emisor: [this.data_user.id, Validators.required],
@@ -118,15 +124,11 @@ export class ChatViewComponent implements OnInit {
     let data = this.myForm_chat.value;
         data.reseptor = this.id;
         data.emisor = this.data_user.id;
-    console.log(data);
+    // console.log(data);
     return this._chat.saved(data)
       .subscribe((res: any) => {
-        console.log(res);
-        // if (res.status === 200) {
-        //   let accion = new MensajesAction(res.mensaje, 'post');
-        //   this._store.dispatch(accion);
+        // console.log(res);
           this.myForm_chat = this.create_form();
-        // }
       });
 
   }

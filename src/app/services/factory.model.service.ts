@@ -171,10 +171,11 @@ export class FactoryModelService {
 
     /* los escuchas eventos */
     this.sock.on('chat/iniciar_chat',(data:any)=>{
-      console.dir(data);
+      // console.dir(data);
       if(data.metodo === 'POST'){
         let accion = new MensajesAction(data.data, 'post');
           this._store.dispatch(accion);
+          this.notificar('assets/sonidos/platillos.mp3');
       }
       if(data.metodo === 'UPDATE'){
         let accion = new MensajesAction(data.data, 'put');
@@ -185,9 +186,12 @@ export class FactoryModelService {
           this._store.dispatch(accion);
       }
     });
-
-
-
+  }
+  notificar(obj){
+    let sonido = new Audio();
+    sonido.src = obj;
+    sonido.load();
+    sonido.play();
   }
 
 }

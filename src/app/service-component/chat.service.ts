@@ -16,7 +16,7 @@ export class ChatService {
     return this._model.query('chat', query);
   }
   get_detallado(query: any){
-    return this._model.query('chatdetallado', query);
+    return this._model.query('chat/get_chat_user', query);
   }
   saved (query: any){
     return this._model.create('chat/iniciar_chat', query);

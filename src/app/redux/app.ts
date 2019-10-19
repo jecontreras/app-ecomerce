@@ -231,6 +231,14 @@ export function appReducer(state: any = APP, action: _action.actions) {
         break;
       }
     }
+    case _action.SEARCH: {
+      switch(action.opt){
+        case 'post':{
+          state.search = action.payload;
+        }
+        break;
+      }
+    }
     break;
     default: return state;
   }

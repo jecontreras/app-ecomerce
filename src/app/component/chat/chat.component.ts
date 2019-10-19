@@ -38,7 +38,7 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
   }
   init(){
-    this.list_mensajes = _.unionBy(this.list_mensajes || [], this.store.mensajes, 'id');
+    // this.list_mensajes = _.unionBy(this.list_mensajes || [], this.store.mensajes, 'id');
     if (this.list_mensajes.length === 0) {
       this.get_chat();
     }
