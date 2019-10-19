@@ -22,11 +22,12 @@
   </ion-toolbar>
 </ion-header>
 <ion-content padding>
+  <ion-row>
+    <ion-col>
+        <ion-searchbar placeholder="Buscar Ecomerce" [(ngModel)]="searchtxt" (change)="search()"> </ion-searchbar>
+    </ion-col>
+  </ion-row>
   <ion-list>
-    <ion-item>
-      <ion-searchbar slot="start" placeholder="Buscar Ecomerce" [(ngModel)]="searchtxt" (input)="search()">
-      </ion-searchbar>
-    </ion-item>
     <ion-item>
       <ion-text color="dark" slot="start">
         <h6> Filtro </h6>
@@ -67,13 +68,13 @@
         <h6> Todos los filtros </h6>
       </ion-text>
     </ion-item>
-    <ion-item>
+    <!-- <ion-item>
       <ion-item-divider>
         <ion-text color="dark">
           <h6>¡Quires decir traffic (56)?</h6>
         </ion-text>
       </ion-item-divider>
-    </ion-item>
+    </ion-item> -->
   </ion-list>
   <ion-grid>
     <ion-row>
