@@ -81,6 +81,6 @@ export class AppModule {
     constructor(
       private _mode: FactoryModelService
     ){
-      this._mode.conectionSocket();
+      // this._mode.conectionSocket();
     }
 }

@@ -16,7 +16,7 @@ export class AppService {
     return this._model.query('app', query);
   }
   get_detalles(query: any){
-    return this._model.create('appdetalles/getarticulo', query);
+    return this._model.query('appdetalles/getarticulo', query);
   }
   saved (query: any){
     return this._model.create('app', query);

@@ -6,6 +6,7 @@ import { MENSAJES } from 'src/app/redux/interfax/mensajes';
 import * as _ from 'lodash';
 import { ChatService } from 'src/app/service-component/chat.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FactoryModelService } from 'src/app/services/factory.model.service';
 
 @Component({
   selector: 'app-chat-view',
@@ -20,6 +21,7 @@ export class ChatViewComponent implements OnInit {
   public id: any;
   public disable_list:boolean = true;
   public ev:any;
+  public count:any;
 
   constructor(
     private _store: Store<MENSAJES>,
@@ -27,17 +29,24 @@ export class ChatViewComponent implements OnInit {
     public formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
+    private _model: FactoryModelService
   ) {
+    this._model.sock.on('chat/iniciar_chat',(data:any)=>{
+      console.log(data);
+      this.count = data.data.mensaje;
+    });
     this._store.select("name")
       .subscribe((store: any) => {
-        console.log(store);
+        // console.log(store);
         this.data_user = store.user;
         if (Object.keys(this.data_user).length === 0) {
           this.router.navigate(['login']);
         }
-
-        // this.list_mensajes = _.unionBy(this.list_mensajes || [], store.mensajes, 'emisor');
-        // this.list_mensajes = _.orderBy(this.list_mensajes, ['creado'], ['asc']);
+        if(Object.keys(store.mensajes).length >0) {
+          this.list_mensajes = store.mensajes;
+        }
+        // this.list_mensajes = _.unionBy(this.list_mensajes || [], store.mensajes, 'id');
+        // this.list_mensajes = _.orderBy(this.list_mensajes, ['createdAt'], ['asc']);
     });
     this.route.params.subscribe(params => {
       if (params['id'] != null) {
@@ -69,34 +78,6 @@ export class ChatViewComponent implements OnInit {
           id: 1,
           mensaje: "hola andres"
         },
-        {
-          emisor: {
-            id: 2,
-            username: "jose",
-            foto: "assets/imagenes/dilisap1.png"
-          },
-          reseptor: {
-            id: 1,
-            username: "andres",
-            foto: "assets/imagenes/dilisap1.png"
-          },
-          id: 1,
-          mensaje: "hola jose"
-        },
-        {
-          emisor: {
-            id: 2,
-            username: "jose",
-            foto: "assets/imagenes/dilisap1.png"
-          },
-          reseptor: {
-            id: 1,
-            username: "andres",
-            foto: "assets/imagenes/dilisap1.png"
-          },
-          id: 1,
-          mensaje: "como estas"
-        }
       ];
     }
   }
