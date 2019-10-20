@@ -9,6 +9,7 @@ import { ToastController } from '@ionic/angular';
 import { ProductoService } from 'src/app/service-component/producto.service';
 import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker/ngx';
 import { Router } from '@angular/router';
+import { async } from 'q';
 
 @Component({
   selector: 'app-producto',
@@ -26,6 +27,7 @@ export class ProductoPage implements OnInit {
   public m: any = '';
   public data:any = {};
   public data_user:any;
+  public disable_button:boolean = true;
 
   @ViewChildren('slideWithNav') slideWithNav: IonSlides;
   sliderOne: any;
@@ -58,9 +60,16 @@ export class ProductoPage implements OnInit {
       }
     });
     this.myForm_product = this.createMyForm();
-
+    
+    this.data = {
+      list_informacion: [{}],
+      list_envios: [{}],
+      list_galeria: Array()
+    };
+    
     if(this.evento){
       this.url = this.evento.foto;
+      this.data = this.evento;
       this.myForm_product.patchValue(this.evento);
     }
 
@@ -90,11 +99,6 @@ export class ProductoPage implements OnInit {
             image: './assets/imagenes/dilisap1.png'
           }
         ]
-    };
-    this.data = {
-      list_informacion: [{}],
-      list_envios: [{}],
-      list_galeria: Array()
     };
   }
 
@@ -151,12 +155,14 @@ export class ProductoPage implements OnInit {
     data.list_informacion = this.data.list_informacion;
     data.list_envios = this.data.list_envios;
     data.list_galeria = this.data.list_galeria;
+    this.disable_button = false;
     this._Articulo.saved(data)
     .subscribe((res:any)=>{
       console.log("*********",res);
       let accion:any = new ArticulosAction(res, 'post');
       this._store.dispatch(accion);
       this.myForm_product = this.createMyForm();
+      this.disable_button = true;
     });
   }
 
@@ -164,14 +170,23 @@ export class ProductoPage implements OnInit {
     let data = this.myForm_product.value;
     if(!this.evento.id) return false;
     data.id = this.evento.id;
-    let accion = new ArticulosAction(data, 'put');
-    this._store.dispatch(accion);
-    const toast = await this.toastController.create({
-      message: 'Actualizado.',
-      duration: 2000
+    data.list_informacion = this.data.list_informacion;
+    data.list_envios = this.data.list_envios;
+    data.list_galeria = this.data.list_galeria;
+    this.disable_button = false;
+    this._Articulo.edit(data)
+    .subscribe(async(rta:any)=>{
+      // console.log(rta);
+      let accion = new ArticulosAction(data, 'put');
+      this._store.dispatch(accion);
+      const toast = await this.toastController.create({
+        message: 'Actualizado.',
+        duration: 2000
+      });
+      
+      toast.present();
+      this.disable_button = true;
     });
-
-    toast.present();
   }
   cerrarModal() {
     this.modalCtrl.dismiss();

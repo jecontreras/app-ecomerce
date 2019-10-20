@@ -18,7 +18,8 @@
           </ion-button>
         </ion-col>
         <ion-col size="12">
-          <ion-searchbar  placeholder="Buscar Ecomerce" animated [(ngModel)]="searchtxt" [routerLink]="['/listproduct', 123]" (input)="search($event)"></ion-searchbar>
+          <ion-searchbar placeholder="Buscar Ecomerce" animated [(ngModel)]="searchtxt"
+            [routerLink]="['/listproduct', 123]" (input)="search($event)"></ion-searchbar>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -30,28 +31,32 @@
     <ion-refresher-content>
     </ion-refresher-content>
   </ion-refresher>
+  <ion-item-divider>
   <ion-slides pager="false" [options]="slideOptsOne" #slideWithNav
     (ionSlideDidChange)="SlideDidChange(sliderOne,slideWithNav)">
     <ion-slide *ngFor="let s of sliderOne.slidesItems">
       <ion-segment>
-        <ion-segment-button checked [routerLink]="['/listproduct', 123]" >
+        <ion-segment-button checked [routerLink]="['/listproduct', 123]">
           <ion-label>{{ s.titulo }}</ion-label>
         </ion-segment-button>
       </ion-segment>
     </ion-slide>
   </ion-slides>
+  </ion-item-divider>
   <ion-grid *ngFor="let item of data_app.detalleslist">
     <ion-row>
-      <ion-col>
-        <ion-text>
-          <h4>{{ item.titulo }}</h4>
-        </ion-text>
-      </ion-col>
-      <ion-col size="3">
-        <ion-text>
-          <h6 [routerLink]="['/listproduct', item.valor]" class="mouse">Más</h6>
-        </ion-text>
-      </ion-col>
+      <ion-item-divider>
+        <ion-col>
+          <ion-text>
+            <h4>{{ item.titulo }}</h4>
+          </ion-text>
+        </ion-col>
+        <ion-col size="3">
+          <ion-text>
+            <h6 [routerLink]="['/listproduct', item.valor]" class="mouse">Más</h6>
+          </ion-text>
+        </ion-col>
+      </ion-item-divider>
     </ion-row>
     <ion-row>
       <ion-col size="12">

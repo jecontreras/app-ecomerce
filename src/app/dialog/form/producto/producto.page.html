@@ -5,8 +5,8 @@
         <ion-button slot="end" (click)="cerrarModal()">
             <ion-icon name="close-circle-outline"></ion-icon>
         </ion-button>
-        <ion-button *ngIf="!evento.id" (click)="submit()" slot="end" color="success">Guardar</ion-button>
-        <ion-button *ngIf="evento.id" (click)="editar()" slot="end" color="success">Editar</ion-button>
+        <ion-button [disabled]="!disable_button" *ngIf="!evento.id" (click)="submit()" slot="end" color="success">Guardar</ion-button>
+        <ion-button [disabled]="!disable_button" *ngIf="evento.id" (click)="editar()" slot="end" color="success">Editar</ion-button>
     </ion-toolbar>
 </ion-header>
 

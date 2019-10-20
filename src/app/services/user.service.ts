@@ -19,11 +19,16 @@ export class UserService {
     this.url = GLOBAL.url;
  }
   login(user: Object) {
-    return this._http.post(this.url + 'user/login', user);
+    return this._model.create('user/login', user);
   }
   register(user: Object) {
-    return this._http.post(this.url + 'user/register', user);
+    return this._model.create('user/register', user);
   }
+  update(query:any = {}){
+    return this._model.update('user', query.id ,query);
+  }
+
+
   cabeza(query: any) {
     return this._model.query('user', {
       username: query

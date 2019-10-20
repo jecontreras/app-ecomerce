@@ -7,7 +7,7 @@ import { retry, catchError, map } from 'rxjs/operators';
 import { handleError } from './errores';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'lodash';
-import { MensajesAction } from '../redux/app.actions';
+import { MensajesAction, UserAction } from '../redux/app.actions';
 import { MENSAJES } from '../redux/interfax/mensajes';
 import { Store } from '@ngrx/store';
 declare var io: any;
@@ -35,8 +35,16 @@ export class FactoryModelService {
     this.url = GLOBAL.url;
     this.global = GLOBAL;
     this.handleError = handleError;
+
+    this._store.select("name")
+    .subscribe((store: any) => {
+      if( Object.keys(store).length > 0 ) return true;
+      this.user = store.user || {};
+    });
+
+
     this.conectionSocket();
-    this.createsocket("emitir", {mensaje:"inicial"})
+    this.createsocket("emitir", {mensaje:"inicial"});
   }
 
   async createsocket(modelo: string, query: any) {
@@ -66,7 +74,7 @@ export class FactoryModelService {
     return this._http.put<Config>(this.url + modelo + '/' + referencia, query).pipe(
       map((data: any) => {
         data.metodo = 'UPDATE';
-        this.createsocket(modelo, data)
+        this.createsocket(modelo, {mensaje:data})
         return data;
       }),
       // retry(3),
@@ -169,21 +177,47 @@ export class FactoryModelService {
       this.init_count()
     });
 
-    /* los escuchas eventos */
+    /* los escuchas eventos chat/iniciar_chat*/
     this.sock.on('chat/iniciar_chat',(data:any)=>{
-      // console.dir(data);
+      this.user = JSON.parse(localStorage.getItem('user'));
       if(data.metodo === 'POST'){
-        let accion = new MensajesAction(data.data, 'post');
+        if((data.data.emisor.id === this.user.id) || (data.data.reseptor.id === this.user.id)){
+          let accion = new MensajesAction(data.data, 'post');
           this._store.dispatch(accion);
-          this.notificar('assets/sonidos/platillos.mp3');
-      }
-      if(data.metodo === 'UPDATE'){
-        let accion = new MensajesAction(data.data, 'put');
-          this._store.dispatch(accion);
+          if(data.data.emisor.id !== this.user.id){
+            this.notificar('assets/sonidos/platillos.mp3');
+            alert(`${data.data.reseptor.username} ${data.data.mensaje}`);
+          }
+        }
       }
       if(data.metodo === 'DELETE'){
         let accion = new MensajesAction(data.data, 'delete');
           this._store.dispatch(accion);
+      }
+    });
+
+    /* los escuchas eventos user*/
+    this.sock.on('user',(data:any)=>{
+      // console.dir(data);
+      this.user = JSON.parse(localStorage.getItem('user'));
+      if(data.metodo === 'POST'){
+        if((data.data.id === this.user.id)){
+          let accion = new UserAction(data.data, 'post');
+          this._store.dispatch(accion);
+          this.notificar('assets/sonidos/platillos.mp3'); 
+        }
+      }
+      if(data.metodo === 'UPDATE'){
+        if((data.data.id === this.user.id)){
+          let accion = new UserAction(data.data, 'put');
+          this._store.dispatch(accion);
+        }
+      }
+      if(data.metodo === 'DELETE'){
+        if((data.data.id === this.user.id)){
+          let accion = new UserAction(data.data, 'delete');
+          this._store.dispatch(accion);
+        }
       }
     });
   }

@@ -32,6 +32,7 @@ import { ListproductComponent } from './component/listproduct/listproduct.compon
 // plugin
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { FactoryModelService } from './services/factory.model.service';
+import { PerfilComponent } from './component/perfil/perfil.component';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { FactoryModelService } from './services/factory.model.service';
     LoginComponent,
     RegistroComponent,
     ListproductComponent,
+    PerfilComponent,
     ChatComponent
   ],
   entryComponents: [

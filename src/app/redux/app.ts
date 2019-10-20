@@ -12,7 +12,8 @@ let APP = {
     compras: Array(),
     cart: Array(),
     favorito: Object(),
-    user: Object()
+    user: Object(),
+    search: Object()
 };
 export function appReducer(state: any = APP, action: _action.actions) {
   if(JSON.parse(localStorage.getItem('APP'))) state = JSON.parse(localStorage.getItem('APP'));
@@ -36,26 +37,25 @@ export function appReducer(state: any = APP, action: _action.actions) {
     case _action.ARTICULOS:{
       switch (action.opt){
         case 'post': {
+          // console.log(action.payload);
           state.articulos.push(action.payload);
           return local_Storage(state);
         }
         break;
         case 'put': {
-          console.log(action, state.articulos);
           let idx = _.findIndex(state.articulos, ['id', action.payload['id']]);
-          console.log(idx);
           if(idx >-1){
             state.articulos[idx]= action.payload;
-            return local_Storage(state);
           }
+          return local_Storage(state);
         }
         break;
         case 'delete': {
           let idx = _.findIndex(state.articulos, ['id', action.payload['id']]);
           if(idx >-1){
             state.articulos.splice(idx, 1);
-            return local_Storage(state);
           }
+          return local_Storage(state);
         }
         break;
         default:
@@ -76,8 +76,8 @@ export function appReducer(state: any = APP, action: _action.actions) {
           if(idx >-1){
             state.mensajes[idx]= action.payload;
             
-            return local_Storage(state);
           }
+          return local_Storage(state);
         }
         break;
         case 'delete': {
@@ -108,8 +108,8 @@ export function appReducer(state: any = APP, action: _action.actions) {
           if(idx >-1){
             state.notificaciones[idx]= action.payload;
             
-            return local_Storage(state);
           }
+          return local_Storage(state);
         }
         break;
         case 'delete': {
@@ -140,8 +140,8 @@ export function appReducer(state: any = APP, action: _action.actions) {
           if(idx >-1){
             state.comentarios[idx]= action.payload;
             
-            return local_Storage(state);
           }
+          return local_Storage(state);
         }
         break;
         case 'delete': {
@@ -171,16 +171,16 @@ export function appReducer(state: any = APP, action: _action.actions) {
           let idx = _.findIndex(state.compras, ['id', action.payload['id']]);
           if(idx >-1){
             state.compras[idx]= action.payload;
-            return local_Storage(state);
           }
+          return local_Storage(state);
         }
         break;
         case 'delete': {
           let idx = _.findIndex(state.compras, ['id', action.payload['id']]);
           if(idx >-1){
             state.compras.splice(idx, 1);
-            return local_Storage(state);
           }
+          return local_Storage(state);
         }
         break;
         default:
@@ -199,16 +199,16 @@ export function appReducer(state: any = APP, action: _action.actions) {
           let idx = _.findIndex(state.cart, ['id', action.payload['id']]);
           if(idx >-1){
             state.cart[idx]= action.payload;
-            return local_Storage(state);
           }
+          return local_Storage(state);
         }
         break;
         case 'delete': 
         let idx = _.findIndex(state.cart, ['id', action.payload['id']]);
           if(idx >-1){
             state.cart.splice(idx, 1);
-            return local_Storage(state);
           }
+          return local_Storage(state);
         break;
       }
     }
@@ -222,21 +222,23 @@ export function appReducer(state: any = APP, action: _action.actions) {
         break;
         case 'put': {
           state.user = action.payload;
-          return local_Storage(state);
         }
+        return local_Storage(state);
         break;
         case 'delete': 
           state.user = {};
+          break;
           return local_Storage(state);
-        break;
       }
     }
     case _action.SEARCH: {
       switch(action.opt){
         case 'post':{
           state.search = action.payload;
+          return local_Storage(state);
         }
         break;
+        default: return state;
       }
     }
     break;

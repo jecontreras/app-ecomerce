@@ -22,7 +22,7 @@ export class ChatViewComponent implements OnInit {
   public disable_list:boolean = true;
   public ev:any;
   public count:any;
-
+  public id_articulo:any;
   constructor(
     private _store: Store<MENSAJES>,
     private _chat: ChatService,
@@ -43,6 +43,8 @@ export class ChatViewComponent implements OnInit {
           this.list_mensajes = _.unionBy(this.list_mensajes || [], store.mensajes, 'id');
           // this.list_mensajes = _.orderBy(this.list_mensajes, ['createdAt'], ['asc']);
         }
+        if(!store.search) this.router.navigate(['home']);
+        else this.id_articulo = store.search;
     });
     this.route.params.subscribe(params => {
       if (params['id'] != null) {
@@ -124,6 +126,7 @@ export class ChatViewComponent implements OnInit {
     let data = this.myForm_chat.value;
         data.reseptor = this.id;
         data.emisor = this.data_user.id;
+        data.articulo = this.id_articulo.id;
     // console.log(data);
     return this._chat.saved(data)
       .subscribe((res: any) => {

@@ -44,7 +44,7 @@ export class UserAction implements Action {
 
 export class SearchAction implements Action {
     readonly type = SEARCH;
-    constructor( public payload: object,  public opt: string){}
+    constructor( public payload: any,  public opt: string){}
 }
 
 export type actions = NameappAction         |
