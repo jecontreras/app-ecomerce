@@ -19,6 +19,7 @@ export class ProductosComponent implements OnInit {
   public searchtxt:any;
   public ev:any = {};
   public disable_list:boolean = true;
+  
   constructor(
     private _store: Store<ARTICULOS>,
     private modalCtrl: ModalController,

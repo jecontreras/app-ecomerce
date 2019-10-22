@@ -22,7 +22,11 @@
   </ion-toolbar>
 </ion-header>
 <ion-content padding>
-  <ion-list>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullMin="100" pullMax="100">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-list *ngIf="disable_list && list_notificacion.length >=1">
     <ion-list-header>
       Recent Conversations
     </ion-list-header>

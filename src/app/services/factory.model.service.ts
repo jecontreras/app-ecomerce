@@ -7,7 +7,7 @@ import { retry, catchError, map } from 'rxjs/operators';
 import { handleError } from './errores';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'lodash';
-import { MensajesAction, UserAction } from '../redux/app.actions';
+import { MensajesAction, UserAction, NotificacionesAction } from '../redux/app.actions';
 import { MENSAJES } from '../redux/interfax/mensajes';
 import { Store } from '@ngrx/store';
 declare var io: any;
@@ -184,9 +184,19 @@ export class FactoryModelService {
         if((data.data.emisor.id === this.user.id) || (data.data.reseptor.id === this.user.id)){
           let accion = new MensajesAction(data.data, 'post');
           this._store.dispatch(accion);
-          if(data.data.emisor.id !== this.user.id){
+          if(data.data.reseptor.id === this.user.id){
+            // console.log(data.data, this.user)
             this.notificar('assets/sonidos/platillos.mp3');
             alert(`${data.data.reseptor.username} ${data.data.mensaje}`);
+          }
+          if(data.data.notificacion === true){
+            let cuerpo:any = {
+              id: data.data.id, 
+              notificar: true,
+              estado: 'no visto'
+            };
+            let accion:any = new NotificacionesAction(cuerpo, 'post');
+            this._store.dispatch(accion);
           }
         }
       }

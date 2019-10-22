@@ -1,11 +1,18 @@
 import { Component, OnInit, ViewChild, ViewChildren  } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
+import { Store } from '@ngrx/store';
+import { NOTIFICACIONES } from 'src/app/redux/interfax/notificaciones';
+import { NotificacionService } from 'src/app/service-component/notificacion.service';
 @Component({
   selector: 'app-notificaciones',
   templateUrl: './notificaciones.component.html',
   styleUrls: ['./notificaciones.component.scss'],
 })
 export class NotificacionesComponent implements OnInit {
+
+  public list_notificacion:any = [];
+  public ev:any = {};
+  public disable_list:boolean = true;
 
   @ViewChildren('slideWithNav') slideWithNav: IonSlides;
   @ViewChildren('slideWithNav2') slideWithNav2: IonSlides;
@@ -32,7 +39,20 @@ export class NotificacionesComponent implements OnInit {
     slidesPerView: 3
   };
 
-  constructor() { }
+  constructor(
+    private _store: Store<NOTIFICACIONES>,
+    private _notificaion: NotificacionService
+  ) { 
+    this._store.select("name")
+    .subscribe((store:any)=>{
+      console.log(store);
+      if(Object.keys(store.notificaciones).length > 0){
+
+      }else{
+        this.get_notificacion();
+      }
+    });
+  }
 
   ngOnInit() {
     //Item object for Nature
@@ -120,6 +140,27 @@ export class NotificacionesComponent implements OnInit {
         ]
       };
   }
+
+  doRefresh(ev){
+    this.ev = ev;
+    this.disable_list = false;
+    this.get_notificacion();
+  }
+
+  async get_notificacion(){
+    return this._notificaion.get({})
+    .subscribe((rta:any)=>{
+      console.log(rta);
+      this.list_notificacion = rta.data;
+      if(this.ev){
+        this.disable_list = true;
+        if(this.ev.target){
+          this.ev.target.complete();
+        }
+      }
+    });
+  }
+
   //Move to Next slide
   slideNext(object, slideView) {
     slideView.slideNext(500).then(() => {
