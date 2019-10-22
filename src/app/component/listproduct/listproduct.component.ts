@@ -34,7 +34,7 @@ export class ListproductComponent implements OnInit {
     // ]
 
   }
-  search(){
+  search(opt = 'false'){
     if(this.searchtxt.length > 1){
       this.query.where.or = [
         {
@@ -51,6 +51,15 @@ export class ListproductComponent implements OnInit {
     }else{
       delete this.query.where.or;
     }
+    if(opt === 'estado'){
+      if(this.query.where.estado === 'especificar') delete this.query.where.estado;
+    }
+
+    if(opt === 'precio'){
+      if(this.query.where.costoventa === 'todos') delete this.query.where.costoventa;
+    }
+
+
     this.get_producto();
   }
   get_producto(){

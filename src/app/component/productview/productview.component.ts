@@ -112,11 +112,11 @@ export class ProductviewComponent implements OnInit {
           this.data = rta.data[0];
           if(!this.data) return false;
           this.data.cantida_adquiridad = String(1);
-          if (!this.data.informacion_articulo) this.data.informacion_articulo = [{ key: "none", value: "none" }];
-          if (!this.data.comentario) this.data.comentario = [{ key: "none", value: "none" }];
-          if (!this.data.envios_devoluciones) this.data.envios_devoluciones = [{ key: "none", value: "none" }];
-          if (!this.data.list_comentario_vendedor) this.data.list_comentario_vendedor = [{ username: "pos_r", titulo: "Excelente", comentario: "genial vendedor" }];
-          if (!this.data.user) this.data.user = {};
+          if (this.data.list_informacion.length === 0 ) this.data.informacion_articulo = [{ key: "none", value: "none" }];
+          // if (this.data.comentario.length === 0) this.data.comentario = [{ key: "none", value: "none" }];
+          if (this.data.list_envios.length === 0) this.data.envios_devoluciones = [{ key: "none", value: "none" }];
+          // if (this.data.list_comentario_vendedor.length === 0) this.data.list_comentario_vendedor = [{ username: "pos_r", titulo: "Excelente", comentario: "genial vendedor" }];
+          if (this.data.user) this.data.user = {};
         });
       }
     });

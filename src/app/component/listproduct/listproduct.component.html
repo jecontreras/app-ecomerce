@@ -55,14 +55,15 @@
       </ion-toolbar>
     </ion-item>
     <ion-item>
-      <ion-select placeholder="Estado" slot="start">
+      <ion-select placeholder="Estado" [(ngModel)]="query.where.estado" slot="start" (blur)="search('estado')">
         <ion-select-option value="nuevo">Nuevo</ion-select-option>
         <ion-select-option value="usado">Usado</ion-select-option>
         <ion-select-option value="especificar">Sin especificar</ion-select-option>
       </ion-select>
-      <ion-select placeholder="Precio" slot="end">
-        <ion-select-option value="mayor">De menor a mayor</ion-select-option>
-        <ion-select-option value="menor">de mayor a menor</ion-select-option>
+      <ion-select placeholder="Precio"[(ngModel)]="query.where.costoventa" slot="end" (blur)="search('precio')">
+        <ion-select-option value="asc">De menor a mayor</ion-select-option>
+        <ion-select-option value="desc">De mayor a menor</ion-select-option>
+        <ion-select-option value="todos">Todos</ion-select-option>
       </ion-select>
       <ion-text color="dark" slot="end">
         <h6> Todos los filtros </h6>
@@ -76,6 +77,9 @@
       </ion-item-divider>
     </ion-item> -->
   </ion-list>
+  <div>
+    
+  </div>
   <ion-grid>
     <ion-row>
       <ion-col size="12" *ngFor="let item of list_articulo.data" [routerLink]="['/productoview', item.id]">
