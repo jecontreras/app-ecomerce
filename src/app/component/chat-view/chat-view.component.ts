@@ -6,6 +6,7 @@ import { MENSAJES } from 'src/app/redux/interfax/mensajes';
 import * as _ from 'lodash';
 import { ChatService } from 'src/app/service-component/chat.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FactoryModelService } from 'src/app/services/factory.model.service';
 
 @Component({
   selector: 'app-chat-view',
@@ -20,85 +21,51 @@ export class ChatViewComponent implements OnInit {
   public id: any;
   public disable_list:boolean = true;
   public ev:any;
-
+  public count:any;
+  public id_articulo:any;
   constructor(
     private _store: Store<MENSAJES>,
     private _chat: ChatService,
     public formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
+    private _model: FactoryModelService
   ) {
     this._store.select("name")
       .subscribe((store: any) => {
-        console.log(store);
+        // console.log(store);
         this.data_user = store.user;
         if (Object.keys(this.data_user).length === 0) {
           this.router.navigate(['login']);
         }
+        if(Object.keys(store.mensajes).length >0) {
+          // this.list_mensajes = store.mensajes;
+          this.list_mensajes = _.unionBy(this.list_mensajes || [], store.mensajes, 'id');
+          // this.list_mensajes = _.orderBy(this.list_mensajes, ['createdAt'], ['asc']);
+        }else this.get_chat();
 
-        // this.list_mensajes = _.unionBy(this.list_mensajes || [], store.mensajes, 'emisor');
-        // this.list_mensajes = _.orderBy(this.list_mensajes, ['creado'], ['asc']);
+        if(!store.search) this.router.navigate(['home']);
+        else this.id_articulo = store.search;
     });
     this.route.params.subscribe(params => {
       if (params['id'] != null) {
         this.id = params['id'];
       }
     });
-    this.get_init();
     this.myForm_chat = this.create_form();
+
+    let
+      init: any = 0
+    ;
+    let interval = setInterval(() => {
+      init += 1;
+      if (init === 5) {
+        init = 0;
+      }
+    }, 1000);
   }
   ngOnInit() {
 
-  }
-
-  get_init() {
-    this.get_chat();
-    if (this.list_mensajes.length === 1) {
-      this.list_mensajes = [
-        {
-          emisor: {
-            id: 2,
-            username: "jose",
-            foto: "assets/imagenes/dilisap1.png"
-          },
-          reseptor: {
-            id: 1,
-            username: "andres",
-            foto: "assets/imagenes/dilisap1.png"
-          },
-          id: 1,
-          mensaje: "hola andres"
-        },
-        {
-          emisor: {
-            id: 2,
-            username: "jose",
-            foto: "assets/imagenes/dilisap1.png"
-          },
-          reseptor: {
-            id: 1,
-            username: "andres",
-            foto: "assets/imagenes/dilisap1.png"
-          },
-          id: 1,
-          mensaje: "hola jose"
-        },
-        {
-          emisor: {
-            id: 2,
-            username: "jose",
-            foto: "assets/imagenes/dilisap1.png"
-          },
-          reseptor: {
-            id: 1,
-            username: "andres",
-            foto: "assets/imagenes/dilisap1.png"
-          },
-          id: 1,
-          mensaje: "como estas"
-        }
-      ];
-    }
   }
   doRefresh(ev){
     this.ev = ev;
@@ -108,23 +75,30 @@ export class ChatViewComponent implements OnInit {
   get_chat() {
     return this._chat.get_detallado({
       where: {
-        // reseptor: this.id,
-        // emisor: this.data_user.id
+        reseptor: this.id,
+        emisor: this.data_user.id
       }
     }).subscribe((rta: any) => {
-      console.log(rta, this.data_user)
+      console.log(rta)
       if(this.ev){
         this.disable_list = true;
         if(this.ev.target){
           this.ev.target.complete();
         }
       }
-      this.list_mensajes = rta.data;
+      for(let row of rta.mensaje){
+        let idx = this.list_mensajes.find(item => item.id == row.id);
+        if(!idx){
+          let accion:any = new MensajesAction(row, 'post');
+          this._store.dispatch(accion);
+        }
+      }
+      this.list_mensajes = rta.mensaje;
       
     });
   }
   create_form() {
-    console.log(this.id)
+    // console.log(this.id)
     return this.formBuilder.group({
       mensaje: ['', Validators.required],
       emisor: [this.data_user.id, Validators.required],
@@ -137,15 +111,12 @@ export class ChatViewComponent implements OnInit {
     let data = this.myForm_chat.value;
         data.reseptor = this.id;
         data.emisor = this.data_user.id;
-    console.log(data);
+        data.articulo = this.id_articulo.id;
+    // console.log(data);
     return this._chat.saved(data)
       .subscribe((res: any) => {
-        console.log(res);
-        // if (res.status === 200) {
-        //   let accion = new MensajesAction(res.mensaje, 'post');
-        //   this._store.dispatch(accion);
+        // console.log(res);
           this.myForm_chat = this.create_form();
-        // }
       });
 
   }

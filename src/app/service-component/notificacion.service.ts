@@ -5,7 +5,7 @@ import { FactoryModelService } from '../services/factory.model.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ChatService {
+export class NotificacionService {
 
   constructor(
     private _model: FactoryModelService
@@ -13,12 +13,9 @@ export class ChatService {
     // this.cuerpo = this._model;
   }
   get(query: any){
-    return this._model.query('chat', query);
-  }
-  get_detallado(query: any){
-    return this._model.create('chat/get_chat_user', query);
+    return this._model.query('notificacion', query);
   }
   saved (query: any){
-    return this._model.create('chat/iniciar_chat', query);
+    return this._model.create('notificacion', query);
   }
 }

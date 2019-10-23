@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ARTICULOS } from 'src/app/redux/interfax/articulos';
 import * as _ from 'lodash';
-import { CartAction } from 'src/app/redux/app.actions';
+import { CartAction, SearchAction } from 'src/app/redux/app.actions';
 import { ToastController } from '@ionic/angular';
 import { ProductoService } from 'src/app/service-component/producto.service';
 
@@ -112,11 +112,11 @@ export class ProductviewComponent implements OnInit {
           this.data = rta.data[0];
           if(!this.data) return false;
           this.data.cantida_adquiridad = String(1);
-          if (!this.data.informacion_articulo) this.data.informacion_articulo = [{ key: "none", value: "none" }];
-          if (!this.data.comentario) this.data.comentario = [{ key: "none", value: "none" }];
-          if (!this.data.envios_devoluciones) this.data.envios_devoluciones = [{ key: "none", value: "none" }];
-          if (!this.data.list_comentario_vendedor) this.data.list_comentario_vendedor = [{ username: "pos_r", titulo: "Excelente", comentario: "genial vendedor" }];
-          if (!this.data.user) this.data.user = {};
+          if (this.data.list_informacion.length === 0 ) this.data.informacion_articulo = [{ key: "none", value: "none" }];
+          // if (this.data.comentario.length === 0) this.data.comentario = [{ key: "none", value: "none" }];
+          if (this.data.list_envios.length === 0) this.data.envios_devoluciones = [{ key: "none", value: "none" }];
+          // if (this.data.list_comentario_vendedor.length === 0) this.data.list_comentario_vendedor = [{ username: "pos_r", titulo: "Excelente", comentario: "genial vendedor" }];
+          if (Object.keys(this.data.user).length === 0) this.data.user = {};
         });
       }
     });
@@ -149,6 +149,20 @@ export class ProductviewComponent implements OnInit {
   fn_favorito() {
 
   }
+
+  async data_chat(){
+    let data:any = {
+      id: this.data.id,
+      titulo: this.data.titulo,
+      costopromosion: this.data.costopromosion,
+      costoventa: this.data.costoventa
+    };
+    console.log(this.data)
+    let action = new SearchAction(data, 'post')
+    this._store.dispatch(action);
+    this.router.navigate(['/chat_view', this.data.user.id]);
+  }
+
 
 
   // TODO FUNCIONES DEL SLIDER

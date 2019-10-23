@@ -4,6 +4,7 @@ import { MENSAJES } from 'src/app/redux/interfax/mensajes';
 import * as _ from 'lodash';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChatService } from 'src/app/service-component/chat.service';
+import { MensajesInitAction } from 'src/app/redux/app.actions';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -25,24 +26,19 @@ export class ChatComponent implements OnInit {
   ) {
     this._store.select("name")
       .subscribe((store: any) => {
-        console.log(store);
-        
+        // console.log(store);
+        this.store = store;
         this.data_user = store.user;
         if(Object.keys(this.data_user).length ===0){
           this.router.navigate(['login']);
         }
-        this.store = store;
-        this.init();
+        if(Object.keys(store.mensajes_init).length > 0) this.list_mensajes = store.mensajes_init;
+        else this.get_chat();
       });
   }
   ngOnInit() {
   }
-  init(){
-    this.list_mensajes = _.unionBy(this.list_mensajes || [], this.store.mensajes, 'id');
-    if (this.list_mensajes.length === 0) {
-      this.get_chat();
-    }
-  }
+
   doRefresh(ev){
     this.ev = ev;
     this.disable_list = false;
@@ -59,17 +55,23 @@ export class ChatComponent implements OnInit {
       },
       sort: 'updatedAt DESC'
     }
-    console.log(query)
     return this._chat.get(query)
     .subscribe((rta:any)=>{
-      console.log(rta);
-      this.list_mensajes = _.unionBy(this.list_mensajes || [], rta.data, 'id');
+      // console.log(rta);
         if(this.ev){
           this.disable_list = true;
           if(this.ev.target){
             this.ev.target.complete();
           }
         }
+        for(let row of rta.data){
+          let idx = this.list_mensajes.find((item:any) => item.id == row.id);
+          if(!idx){
+            let accion:any = new MensajesInitAction(row, 'post');
+            this._store.dispatch(accion);
+          }
+        }
+        this.list_mensajes = _.unionBy(this.list_mensajes || [], rta.data, 'id');
     });
   }
 

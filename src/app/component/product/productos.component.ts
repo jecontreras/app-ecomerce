@@ -19,6 +19,7 @@ export class ProductosComponent implements OnInit {
   public searchtxt:any;
   public ev:any = {};
   public disable_list:boolean = true;
+  
   constructor(
     private _store: Store<ARTICULOS>,
     private modalCtrl: ModalController,
@@ -52,7 +53,6 @@ export class ProductosComponent implements OnInit {
     }).subscribe((articulo:any)=>{
       articulo = articulo.data;
       console.log(articulo);
-      this.list_product = articulo;
       if(this.ev){
         this.disable_list = true;
         if(this.ev.target){
@@ -66,6 +66,7 @@ export class ProductosComponent implements OnInit {
           this._store.dispatch(accion);
         }
       }
+      this.list_product = articulo;
     });
   }
   doRefresh(ev){

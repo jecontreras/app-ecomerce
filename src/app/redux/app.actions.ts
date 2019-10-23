@@ -3,12 +3,14 @@ import { Action } from "@ngrx/store";
 export let NAMEAPP          = '[App] Nameapp';
 export let ARTICULOS        = '[App] Articulo';
 export let MENSAJES         = '[App] Mensajes';
+export let MENSAJESINIT     = '[App] Mensajesinit';
 export let NOTIFICACIONES   = '[App] Notificaciones';
 export let COMENTARIOS      = '[App] Comentarios';
 export let COMPRAS          = '[App] Compras';
 export let CART             = '[App] Cart';
 export let USER             = '[App] User';
-
+export let SEARCH           = '[App] Search';
+export let EVENTOS          = '[App] Eventos';
 
 export class NameappAction implements Action {
     readonly type = NAMEAPP;
@@ -20,6 +22,10 @@ export class ArticulosAction implements Action {
 }
 export class MensajesAction implements Action {
     readonly type = MENSAJES;
+    constructor( public payload: object,  public opt: string){}
+}
+export class MensajesInitAction implements Action {
+    readonly type = MENSAJESINIT;
     constructor( public payload: object,  public opt: string){}
 }
 export class NotificacionesAction implements Action {
@@ -41,10 +47,23 @@ export class UserAction implements Action {
     constructor( public payload: object,  public opt: string){}
 }
 
+export class SearchAction implements Action {
+    readonly type = SEARCH;
+    constructor( public payload: any,  public opt: string){}
+}
+
+export class EventosAction implements Action {
+    readonly type = EVENTOS;
+    constructor( public payload: any,  public opt: string){}
+}
+
 export type actions = NameappAction         |
                       ArticulosAction       |
                       MensajesAction        |
                       NotificacionesAction  |
                       ComprasAction         |
                       CartAction            |
-                      UserAction            ;
+                      UserAction            |
+                      SearchAction          |
+                      MensajesInitAction    |
+                      EventosAction         ;

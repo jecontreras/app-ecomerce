@@ -11,6 +11,7 @@ import { NotificacionesComponent } from './component/notificaciones/notificacion
 import { RegistroComponent } from './logeo/registro/registro.component';
 import { LoginComponent } from './logeo/login/login.component';
 import { ListproductComponent } from './component/listproduct/listproduct.component';
+import { PerfilComponent } from './component/perfil/perfil.component';
 
 const routes: Routes = [
   {
@@ -83,6 +84,10 @@ const routes: Routes = [
   {
     path: 'subastas',
     component: SubastasComponent
+  },
+  {
+    path: 'perfil',
+    component: PerfilComponent
   },
   { path: 'producto', loadChildren: './dialog/form/producto/producto.module#ProductoPageModule' }
 ];

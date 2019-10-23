@@ -9,7 +9,7 @@
         </ion-col>
         <ion-col size="8">
           <ion-title class="ion-padding-top">
-            Chat
+            Chat {{count}}
           </ion-title>
         </ion-col>
         <ion-col size="2">
@@ -22,7 +22,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+  <ion-refresher  pullFactor="0.5" slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <ion-list *ngIf="disable_list">
@@ -35,18 +35,18 @@
         <span class="chat-content-center">{{chat.message}}</span>
       </div> -->
       <ion-content #message>
-        <div class="chat-message" text-right *ngIf="item.emisor.id === data_user.id">
+        <div class="chat-message ion-text-left" *ngIf="item.emisor.id === data_user.id">
           <div class="right-bubble">
             <span class="msg-name">Yo</span>
             <span class="msg-date">{{item.creado | date:'short'}}</span>
-            <p text-wrap>{{item.mensaje}}</p>
+            <p class="ion-text-wrap">{{item.mensaje}}</p>
           </div>
         </div>
-        <div class="chat-message" text-left *ngIf="item.emisor.id !== data_user.id">
+        <div class="chat-message ion-text-left" *ngIf="item.emisor.id !== data_user.id">
           <div class="left-bubble">
             <span class="msg-name">{{item.reseptor.username}}</span>
             <span class="msg-date">{{item.creado | date:'short'}}</span>
-            <p text-wrap>{{item.mensaje}}</p>
+            <p class="ion-text-wrap">{{item.mensaje}}</p>
           </div>
         </div>
       </ion-content>

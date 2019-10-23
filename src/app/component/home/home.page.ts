@@ -4,7 +4,7 @@ import { ARTICULOS } from 'src/app/redux/interfax/articulos';
 import { IonSlides } from '@ionic/angular';
 import { CategoriaService } from 'src/app/service-component/categoria.service';
 import { AppService } from 'src/app/service-component/app.service';
-import { NameappAction } from 'src/app/redux/app.actions';
+import { NameappAction, SearchAction } from 'src/app/redux/app.actions';
 import { Router } from '@angular/router';
 
 @Component({
@@ -56,16 +56,16 @@ export class HomePage {
     this.get_categoria();
   }
   init_app(){
-    this.get_app();
     this._store.select("name")
     .subscribe((store:any)=>{
-      console.log(store);
+      // console.log(store);
       this.data_user = store.user;
       // Validar si el Usuario esta Logueado
       if(Object.keys(this.data_user).length ===0){
         this.router.navigate(['login']);
       }
-      // if( Object.keys(store.nameapp).length > 0 ) this.relleno_list(store.nameapp);
+      if( Object.keys(store.nameapp).length > 0 ) this.data_app = store.nameapp;
+      else this.get_app();
       if( Object.keys(store.articulos).length > 0 ) this.listado;
     });
   }
@@ -82,7 +82,7 @@ export class HomePage {
     return this._app.get_detalles({})
     .subscribe((res:any)=>{
       res = res.data;
-      console.log(res);
+      // console.log(res);
       if(this.ev){
         this.disable_list = true;
         if(this.ev.target){
@@ -140,11 +140,11 @@ export class HomePage {
         },
       ];
   }
-  search(){
-    console.log("hola", this.listhome, this.searchtxt);
-    
-    this.listhome[0].listado = this.listhome[0].listado.filter(row=>row.titulo >= this.searchtxt)
-    console.log(this.listado);
+  search(event:any){
+    console.log(event);
+    let action = new SearchAction(this.search, '')
+    this._store.dispatch(action);
+    this.router.navigate(['/listproduct', 'buscador']);
   }
 
    // TODO FUNCIONES DEL SLIDER
