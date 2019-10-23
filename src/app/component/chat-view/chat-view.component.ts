@@ -42,7 +42,8 @@ export class ChatViewComponent implements OnInit {
           // this.list_mensajes = store.mensajes;
           this.list_mensajes = _.unionBy(this.list_mensajes || [], store.mensajes, 'id');
           // this.list_mensajes = _.orderBy(this.list_mensajes, ['createdAt'], ['asc']);
-        }
+        }else this.get_chat();
+
         if(!store.search) this.router.navigate(['home']);
         else this.id_articulo = store.search;
     });
@@ -51,7 +52,6 @@ export class ChatViewComponent implements OnInit {
         this.id = params['id'];
       }
     });
-    this.get_init();
     this.myForm_chat = this.create_form();
 
     let
@@ -67,28 +67,6 @@ export class ChatViewComponent implements OnInit {
   ngOnInit() {
 
   }
-
-  get_init() {
-    this.get_chat();
-    /*if (this.list_mensajes.length === 1) {
-      this.list_mensajes = [
-        {
-          emisor: {
-            id: 2,
-            username: "jose",
-            foto: "assets/imagenes/dilisap1.png"
-          },
-          reseptor: {
-            id: 1,
-            username: "andres",
-            foto: "assets/imagenes/dilisap1.png"
-          },
-          id: 1,
-          mensaje: "hola andres"
-        },
-      ];
-    }*/
-  }
   doRefresh(ev){
     this.ev = ev;
     this.disable_list = false;
@@ -101,11 +79,18 @@ export class ChatViewComponent implements OnInit {
         emisor: this.data_user.id
       }
     }).subscribe((rta: any) => {
-      // console.log(rta, this.data_user)
+      console.log(rta)
       if(this.ev){
         this.disable_list = true;
         if(this.ev.target){
           this.ev.target.complete();
+        }
+      }
+      for(let row of rta.mensaje){
+        let idx = this.list_mensajes.find(item => item.id == row.id);
+        if(!idx){
+          let accion:any = new MensajesAction(row, 'post');
+          this._store.dispatch(accion);
         }
       }
       this.list_mensajes = rta.mensaje;

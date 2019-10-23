@@ -56,7 +56,6 @@ export class HomePage {
     this.get_categoria();
   }
   init_app(){
-    this.get_app();
     this._store.select("name")
     .subscribe((store:any)=>{
       // console.log(store);
@@ -65,7 +64,8 @@ export class HomePage {
       if(Object.keys(this.data_user).length ===0){
         this.router.navigate(['login']);
       }
-      // if( Object.keys(store.nameapp).length > 0 ) this.relleno_list(store.nameapp);
+      if( Object.keys(store.nameapp).length > 0 ) this.data_app = store.nameapp;
+      else this.get_app();
       if( Object.keys(store.articulos).length > 0 ) this.listado;
     });
   }
@@ -142,9 +142,9 @@ export class HomePage {
   }
   search(event:any){
     console.log(event);
-    // let action = new SearchAction(this.search, '')
-    // this._store.dispatch(action);
-    // this.router.navigate(['/listproduct', 'buscador']);
+    let action = new SearchAction(this.search, '')
+    this._store.dispatch(action);
+    this.router.navigate(['/listproduct', 'buscador']);
   }
 
    // TODO FUNCIONES DEL SLIDER

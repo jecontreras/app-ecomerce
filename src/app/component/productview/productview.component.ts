@@ -116,7 +116,7 @@ export class ProductviewComponent implements OnInit {
           // if (this.data.comentario.length === 0) this.data.comentario = [{ key: "none", value: "none" }];
           if (this.data.list_envios.length === 0) this.data.envios_devoluciones = [{ key: "none", value: "none" }];
           // if (this.data.list_comentario_vendedor.length === 0) this.data.list_comentario_vendedor = [{ username: "pos_r", titulo: "Excelente", comentario: "genial vendedor" }];
-          if (this.data.user) this.data.user = {};
+          if (Object.keys(this.data.user).length === 0) this.data.user = {};
         });
       }
     });
@@ -157,9 +157,10 @@ export class ProductviewComponent implements OnInit {
       costopromosion: this.data.costopromosion,
       costoventa: this.data.costoventa
     };
+    console.log(this.data)
     let action = new SearchAction(data, 'post')
     this._store.dispatch(action);
-    this.router.navigate(['/chat_view', this.data.user]);
+    this.router.navigate(['/chat_view', this.data.user.id]);
   }
 
 

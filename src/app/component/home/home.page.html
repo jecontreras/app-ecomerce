@@ -19,7 +19,7 @@
         </ion-col>
         <ion-col size="12">
           <ion-searchbar placeholder="Buscar Ecomerce" animated [(ngModel)]="searchtxt"
-            [routerLink]="['/listproduct', 123]" (input)="search($event)"></ion-searchbar>
+            (change)="search($event)"></ion-searchbar>
         </ion-col>
       </ion-row>
     </ion-grid>

@@ -7,13 +7,15 @@ let APP = {
     nameapp: Object(),
     articulos: Array(),
     mensajes: Array(),
+    mensajes_init: Array(),
     notificaciones: Array(),
     comentarios: Array(),
     compras: Array(),
     cart: Array(),
     favorito: Object(),
     user: Object(),
-    search: Object()
+    search: Object(),
+    eventos: Array()
 };
 export function appReducer(state: any = APP, action: _action.actions) {
   if(JSON.parse(localStorage.getItem('APP'))) state = JSON.parse(localStorage.getItem('APP'));
@@ -84,6 +86,37 @@ export function appReducer(state: any = APP, action: _action.actions) {
           let idx = _.findIndex(state.mensajes, ['emisor', action.payload['emisor']]);
           if(idx >-1){
             state.mensajes.splice(idx, 1);
+            
+          }
+          return local_Storage(state);
+        }
+        break;
+        default:
+        return local_Storage(state);
+        break;
+      }
+    }
+    break;
+    case _action.MENSAJESINIT:{
+      switch (action.opt){
+        case 'post': {
+          state.mensajes_init.push(action.payload);
+          return local_Storage(state);
+        }
+        break;
+        case 'put': {
+          let idx = _.findIndex(state.mensajes_init, ['id', action.payload['id']]);
+          if(idx >-1){
+            state.mensajes_init[idx]= action.payload;
+            
+          }
+          return local_Storage(state);
+        }
+        break;
+        case 'delete': {
+          let idx = _.findIndex(state.mensajes_init, ['emisor', action.payload['emisor']]);
+          if(idx >-1){
+            state.mensajes_init.splice(idx, 1);
             
           }
           return local_Storage(state);
@@ -239,6 +272,37 @@ export function appReducer(state: any = APP, action: _action.actions) {
         }
         break;
         default: return state;
+      }
+    }
+    break;
+    case _action.EVENTOS:{
+      switch (action.opt){
+        case 'post': {
+          state.eventos.push(action.payload);
+          return local_Storage(state);
+        }
+        break;
+        case 'put': {
+          let idx = _.findIndex(state.eventos, ['id', action.payload['id']]);
+          if(idx >-1){
+            state.eventos[idx]= action.payload;
+            
+          }
+          return local_Storage(state);
+        }
+        break;
+        case 'delete': {
+          let idx = _.findIndex(state.eventos, ['id', action.payload['id']]);
+          if(idx >-1){
+            state.eventos.splice(idx, 1);
+            
+          }
+          return local_Storage(state);
+        }
+        break;
+        default:
+        return local_Storage(state);
+        break;
       }
     }
     break;
