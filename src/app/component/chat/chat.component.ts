@@ -57,7 +57,7 @@ export class ChatComponent implements OnInit {
     }
     return this._chat.get(query)
     .subscribe((rta:any)=>{
-      // console.log(rta);
+      console.log(rta);
         if(this.ev){
           this.disable_list = true;
           if(this.ev.target){
@@ -73,6 +73,13 @@ export class ChatComponent implements OnInit {
         }
         this.list_mensajes = _.unionBy(this.list_mensajes || [], rta.data, 'id');
     });
+  }
+
+  iniciar_chat(item:any){
+    let id:any;
+    if(item.reseptor.id === this.data_user.id)  id = item.emisor.id;
+    else id = item.reseptor.id;
+    this.router.navigate(['/chat_view', id]);
   }
 
 }

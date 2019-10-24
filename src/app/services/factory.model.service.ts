@@ -7,7 +7,7 @@ import { retry, catchError, map } from 'rxjs/operators';
 import { handleError } from './errores';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'lodash';
-import { MensajesAction, UserAction, NotificacionesAction } from '../redux/app.actions';
+import { MensajesAction, UserAction, NotificacionesAction, EventosAction } from '../redux/app.actions';
 import { MENSAJES } from '../redux/interfax/mensajes';
 import { Store } from '@ngrx/store';
 declare var io: any;
@@ -156,7 +156,7 @@ export class FactoryModelService {
     try {
       if (io) {
         io.sails.autoConnect = false;
-        this.sock = io.sails.connect('http://localhost:1337');
+        this.sock = io.sails.connect('https://back-ecomerce.herokuapp.com');
         this.scoket_global();
       }
     } catch (error) {
@@ -180,6 +180,7 @@ export class FactoryModelService {
     /* los escuchas eventos chat/iniciar_chat*/
     this.sock.on('chat/iniciar_chat',(data:any)=>{
       this.user = JSON.parse(localStorage.getItem('user'));
+      // console.log(data.data)
       if(data.metodo === 'POST'){
         if((data.data.emisor.id === this.user.id) || (data.data.reseptor.id === this.user.id)){
           let accion = new MensajesAction(data.data, 'post');
@@ -187,7 +188,7 @@ export class FactoryModelService {
           if(data.data.reseptor.id === this.user.id){
             // console.log(data.data, this.user)
             this.notificar('assets/sonidos/platillos.mp3');
-            alert(`${data.data.reseptor.username} ${data.data.mensaje}`);
+            // alert(`${data.data.reseptor.username} ${data.data.mensaje}`);
           }
           if(data.data.notificacion === true){
             let cuerpo:any = {
@@ -195,7 +196,7 @@ export class FactoryModelService {
               notificar: true,
               estado: 'no visto'
             };
-            let accion:any = new NotificacionesAction(cuerpo, 'post');
+            let accion:any = new EventosAction(cuerpo, 'post');
             this._store.dispatch(accion);
           }
         }

@@ -43,9 +43,9 @@ export class ChatViewComponent implements OnInit {
           this.list_mensajes = _.unionBy(this.list_mensajes || [], store.mensajes, 'id');
           // this.list_mensajes = _.orderBy(this.list_mensajes, ['createdAt'], ['asc']);
         }else this.get_chat();
-
-        if(!store.search) this.router.navigate(['home']);
-        else this.id_articulo = store.search;
+        this.id_articulo = store.search;
+        // if(!store.search) this.router.navigate(['home']);
+        // else 
     });
     this.route.params.subscribe(params => {
       if (params['id'] != null) {
@@ -112,7 +112,7 @@ export class ChatViewComponent implements OnInit {
         data.reseptor = this.id;
         data.emisor = this.data_user.id;
         data.articulo = this.id_articulo.id;
-    // console.log(data);
+    console.log(data);
     return this._chat.saved(data)
       .subscribe((res: any) => {
         // console.log(res);
