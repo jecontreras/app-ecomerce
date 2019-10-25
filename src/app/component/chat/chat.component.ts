@@ -75,4 +75,11 @@ export class ChatComponent implements OnInit {
     });
   }
 
+  iniciar_chat(item:any){
+    let id:any;
+    if(item.reseptor.id === this.data_user.id)  id = item.emisor.id;
+    else id = item.reseptor.id;
+    this.router.navigate(['/chat_view', id]);
+  }
+
 }

@@ -30,7 +30,7 @@
     <ion-list-header>
       Conversacion recientes
     </ion-list-header>
-    <ion-item *ngFor="let item of list_mensajes" [routerLink]="['/chat_view', item.reseptor.id]">
+    <ion-item *ngFor="let item of list_mensajes" (click)="iniciar_chat(item)">
       <ion-avatar slot="start">
         <img [src]="item.emisor.foto ">
       </ion-avatar>

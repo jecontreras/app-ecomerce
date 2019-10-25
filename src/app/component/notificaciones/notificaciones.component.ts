@@ -49,7 +49,7 @@ export class NotificacionesComponent implements OnInit {
   ) { 
     this._store.select("name")
     .subscribe((store:any)=>{
-      console.log(store);
+      // console.log(store, this.list_notificacion);
       this.data_user = store.user;
         if(Object.keys(this.data_user).length ===0){
           this.router.navigate(['login']);

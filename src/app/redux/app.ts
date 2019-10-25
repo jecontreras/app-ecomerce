@@ -15,7 +15,8 @@ let APP = {
     favorito: Object(),
     user: Object(),
     search: Object(),
-    eventos: Array()
+    eventos: Array(),
+    categoria: Array()
 };
 export function appReducer(state: any = APP, action: _action.actions) {
   if(JSON.parse(localStorage.getItem('APP'))) state = JSON.parse(localStorage.getItem('APP'));
@@ -295,6 +296,37 @@ export function appReducer(state: any = APP, action: _action.actions) {
           let idx = _.findIndex(state.eventos, ['id', action.payload['id']]);
           if(idx >-1){
             state.eventos.splice(idx, 1);
+            
+          }
+          return local_Storage(state);
+        }
+        break;
+        default:
+        return local_Storage(state);
+        break;
+      }
+    }
+    break;
+    case _action.CATEGORIA:{
+      switch (action.opt){
+        case 'post': {
+          state.categoria.push(action.payload);
+          return local_Storage(state);
+        }
+        break;
+        case 'put': {
+          let idx = _.findIndex(state.categoria, ['id', action.payload['id']]);
+          if(idx >-1){
+            state.categoria[idx]= action.payload;
+            
+          }
+          return local_Storage(state);
+        }
+        break;
+        case 'delete': {
+          let idx = _.findIndex(state.categoria, ['id', action.payload['id']]);
+          if(idx >-1){
+            state.categoria.splice(idx, 1);
             
           }
           return local_Storage(state);
