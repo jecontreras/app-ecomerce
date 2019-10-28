@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { async } from 'q';
 import { CategoriaService } from 'src/app/service-component/categoria.service';
 import { ColorService } from 'src/app/service-component/color.services';
+import { ArchivoService } from 'src/app/service-component/archivo.services';
 
 @Component({
   selector: 'app-producto',
@@ -30,6 +31,7 @@ export class ProductoPage implements OnInit {
   public data:any = {};
   public data_user:any;
   public disable_button:boolean = true;
+  public data_img:any = [];
 
   @ViewChildren('slideWithNav') slideWithNav: IonSlides;
   sliderOne: any;
@@ -52,7 +54,8 @@ export class ProductoPage implements OnInit {
     private imagePicker: ImagePicker,
     private router: Router,
     private _categoria: CategoriaService,
-    private _color: ColorService
+    private _color: ColorService,
+    private _archivo: ArchivoService
   ) { 
     this.evento = this.navparams.get('obj');
 
@@ -210,31 +213,50 @@ export class ProductoPage implements OnInit {
 
   view_image(ev){
     let 
-      file = ev.target.files[0],
+      file = ev.target.files,
       imageType = /image.*/
     ;
-    if (!file.type.match(imageType)) return;
-
-    var reader = new FileReader();
-    reader.onload = this.fileOnload;
-    this.m = reader.readAsDataURL(file);
-  }
-  fileOnload(e){
-    var result=e.target.result;
+    // if (!file.type.match(imageType)) return;
+    console.log(file);
+    for(let row of file){
+      this.data_img.push(
+        row
+      );
+    }
+    this.subir_img();
+    // var reader = new FileReader();
+    // reader.onload = async (e)=>{
+    //   var result=e.target.result;
+    // };
+    // this.m = reader.readAsDataURL(file);
+    // console.log(this.m )
   }
 
   abrirGaleria(){
-
     let options: ImagePickerOptions = {
       maximumImagesCount: 3
     };
+
     this.imagePicker.getPictures(options).then((results) => {
       for (var i = 0; i < results.length; i++) {
           console.log('Image URI: ' + results[i]);
+          this.data_img.push(
+            `data:image/jpeg:base64,`+results[i]
+          );
       }
+      this.subir_img();
     }, (err) => { });
   }
 
+  subir_img(){
+    let data:any ={
+      img: this.data_img
+    };
+    return this._archivo.saved(data)
+    .subscribe((res:any)=>{
+      console.log(res);
+    });
+  }
 
   createMyForm(){
     return this.formBuilder.group({

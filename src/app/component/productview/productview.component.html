@@ -90,14 +90,6 @@
         </div>
       </ion-col>
       <ion-col size="12">
-        <ion-slides pager="false" [options]="slideOptsTho" #slideWithNav2
-          (ionSlideDidChange)="SlideDidChange(sliderTho,slideWithNav2)">
-          <ion-slide *ngFor="let s of sliderOne.slidesItems">
-            <img src="{{s.image}}">
-          </ion-slide>
-        </ion-slides>
-      </ion-col>
-      <ion-col size="12">
         <ion-item-divider>
           <ion-text class="ion-padding-top" color="dark">
             <h5>Sobre este artículo</h5>
@@ -151,7 +143,7 @@
           </ion-col>
         </ion-row>
       </ion-col>
-      <ion-col size="12">
+      <!-- <ion-col size="12">
         <ion-item-divider>
           <ion-text color="dark">
             <h5>Articulos patrocinados relacionados</h5>
@@ -163,7 +155,7 @@
             <img src="{{s.image}}">
           </ion-slide>
         </ion-slides>
-      </ion-col>
+      </ion-col> -->
       <ion-col size="12">
         <ion-item-divider>
           <ion-text color="dark">
@@ -216,19 +208,19 @@
             </ion-item-divider>
           </div>
           <ion-row>
-            <ion-col size="10">
+            <!-- <ion-col size="10">
               <ion-item-divider>
-                <ion-text class="ion-padding-top" color="dark">
+                <ion-text color="dark">
                   <h6>Otros articulos del vendedor</h6>
                 </ion-text>
               </ion-item-divider>
             </ion-col>
             <ion-col size="2">
               <ion-icon class="ion-padding-top" name="arrow-dropright"></ion-icon>
-            </ion-col>
+            </ion-col> -->
             <ion-col size="10">
               <ion-item-divider>
-                <ion-text class="ion-padding-top" color="dark">
+                <ion-text color="dark">
                   <h6>Contactar al vendedor</h6>
                 </ion-text>
               </ion-item-divider>
@@ -249,8 +241,8 @@
         </ion-item-divider>
         <ion-slides pager="false" [options]="slideOptsFoor" #slideWithNav4
           (ionSlideDidChange)="SlideDidChange(sliderFoor,slideWithNav4)">
-          <ion-slide *ngFor="let s of sliderOne.slidesItems">
-            <img src="{{s.image}}">
+          <ion-slide *ngFor="let s of sliderTho.slidesItems">
+            <img src="{{s.foto || img}}">
           </ion-slide>
         </ion-slides>
       </ion-col>
@@ -269,8 +261,8 @@
         </ion-item-divider>
         <ion-slides pager="false" [options]="slideOptsFive" #slideWithNav5
           (ionSlideDidChange)="SlideDidChange(sliderFive,slideWithNav5)">
-          <ion-slide *ngFor="let s of sliderOne.slidesItems">
-            <img src="{{s.image}}">
+          <ion-slide *ngFor="let s of sliderThree.slidesItems">
+            <img src="{{s.foto || img}}">
           </ion-slide>
         </ion-slides>
       </ion-col>
