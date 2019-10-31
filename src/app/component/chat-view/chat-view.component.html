@@ -21,19 +21,15 @@
     </ion-grid>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-  <ion-refresher  pullFactor="0.5" slot="fixed" (ionRefresh)="doRefresh($event)">
+<ion-content class="ion-padding-vertical ion-fullscreen">
+  <ion-refresher pullFactor="0.5" slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-list *ngIf="disable_list">
+  <!-- <ion-list *ngIf="disable_list">
     <ion-list-header>
       Conversacion {{ data.username || 'Andres'}}
     </ion-list-header>
     <ion-item *ngFor="let item of list_mensajes" no-lines>
-      <!-- <div class="chat-status" text-center *ngIf="chat.type==='join'||chat.type==='exit';else message">
-        <span class="chat-date">{{chat.sendDate | date:'short'}}</span>
-        <span class="chat-content-center">{{chat.message}}</span>
-      </div> -->
       <ion-content #message>
         <div class="chat-message ion-text-left" *ngIf="item.emisor.id === data_user.id">
           <div class="right-bubble">
@@ -51,22 +47,37 @@
         </div>
       </ion-content>
     </ion-item>
-  </ion-list>
-  <!-- <ion-list>
-    <ion-list-header>
-      Conversacion recientes
-    </ion-list-header>
-    <ion-item *ngFor="let item of list_mensajes">
-      <ion-avatar slot="start">
-        <img [src]="item.emisor.foto ">
-      </ion-avatar>
-      <ion-label>
-        <ion-title class="ion-padding-top" color="dark">
-          <p>{{ item.mensaje }}</p>
-        </ion-title>
-      </ion-label>
-    </ion-item>
   </ion-list> -->
+  <div id="chat-parent" class="bg-image" [ngClass]="{ 'bg-image-X': phone_model=='iPhone X'}">
+    <div id="chat-container">
+      <ion-row *ngFor="let conv of conversation; let i = index;" class="full no-padding">
+        <ion-col class="no-padding chat-row" [ngClass]="{ 'reverse': conv.sender}">
+          <div class="avatar-parent">
+            <div class="avatar-border"></div>
+            <img [src]="conv.image" class="avatar">
+          </div>
+          <div [ngClass]="{ 'name-row-parent-right': conv.sender,'name-row-parent-left': !conv.sender}">
+            <div class="no-padding" [ngClass]="{ 'name-row-right': conv.sender,'name-row-left': !conv.sender}">
+              {{conv.sender ? 'Martha': 'Shawn'}} 
+              <div [ngClass]="{ 'timer-right': conv.sender,'timer-left': !conv.sender}">{{i+5}} mins ago
+                <ion-icon *ngIf="conv.sender && conv.sent" name="checkmark" [color]="conv.read ? 'd3green': 'light'"
+                  class="first-tick"></ion-icon>
+                <ion-icon *ngIf="conv.sender && conv.delivered" name="checkmark"
+                  [color]="conv.read ? 'd3green': 'light'" class="second-tick"></ion-icon>
+              </div>
+              <div [ngClass]="{ 'reverse-arc-right': conv.sender,'reverse-arc-left': !conv.sender}">
+                <div [ngClass]="{ 'reverse-arc-color-right': conv.sender,'reverse-arc-color-left': !conv.sender}"></div>
+              </div>
+            </div>
+            <div class="no-padding" [ngClass]="{ 'message-row-right': conv.sender,'message-row-left': !conv.sender}">
+              <ion-text class="text ion-no-margin">{{conv.text}}</ion-text>
+            </div>
+          </div>
+
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
 </ion-content>
 <ion-footer>
   <ion-toolbar>
