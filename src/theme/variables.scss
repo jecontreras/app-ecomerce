@@ -19,6 +19,14 @@
   .next-icon-custom{
       --background: url(../assets/imagenes/dilisap1.png) 0 0/100% 100% no-repeat;
   }
+  @font-face {
+    font-family: 'EB Garamond', serif;
+    src: url('https://fonts.googleapis.com/css?family=EB+Garamond&display=swap');//mine
+  }
+  
+  * {
+    font-family: 'EB Garamond', serif;
+  }
   /** primary **/
   --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;
