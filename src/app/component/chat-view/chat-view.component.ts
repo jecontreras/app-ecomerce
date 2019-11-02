@@ -23,6 +23,21 @@ export class ChatViewComponent implements OnInit {
   public ev:any;
   public count:any;
   public id_articulo:any;
+  conversation = [
+    { text: 'Hey, that\'s an awesome chat UIssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss', sender: 0, image: './assets/images/sg2.jpg' },
+    { text: 'Right, it totally blew my mind', sender: 1, image: './assets/images/sg1.jpg', read: true, delivered: true, sent: true },
+    { text: 'And it is free ?', sender: 0, image: './assets/images/sg2.jpg' },
+    { text: 'Yes, totally free', sender: 1, image: './assets/images/sg1.jpg', read: true, delivered: true, sent: true },
+    { text: 'Wow, that\'s so cool', sender: 0, image: './assets/images/sg2.jpg' },
+    { text: 'Hats off to the developers', sender: 1, image: './assets/images/sg1.jpg', read: false, delivered: true, sent: true },
+    { text: 'Oh yes, this is gooood stuff', sender: 0, image: './assets/images/sg2.jpg' },
+    { text: 'Check out their other designs ', sender: 1, image: './assets/images/sg1.jpg', read: false, delivered: false, sent: true }
+
+  ]
+  phone_model = 'iPhone';
+  input = '';
+
+
   constructor(
     private _store: Store<MENSAJES>,
     private _chat: ChatService,

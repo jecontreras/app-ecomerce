@@ -25,10 +25,18 @@ export class ProductviewComponent implements OnInit {
   @ViewChildren('slideWithNav3') slideWithNav3: IonSlides;
   @ViewChildren('slideWithNav4') slideWithNav4: IonSlides;
   @ViewChildren('slideWithNav5') slideWithNav5: IonSlides;
-
+  public img = "./assets/imagenes/dilisap1.png";
   sliderOne: any;
-  sliderTho: any;
-  sliderThree: any;
+  sliderTho: any = {
+    isBeginningSlide: true,
+    isEndSlide: false,
+    slidesItems:Array()
+  };
+  sliderThree: any = {
+    isBeginningSlide: true,
+    isEndSlide: false,
+    slidesItems:Array()
+  };
   sliderFoor: any;
   sliderFive: any;
   //Configuration for each Slider
@@ -112,11 +120,12 @@ export class ProductviewComponent implements OnInit {
           this.data = rta.data[0];
           if(!this.data) return false;
           this.data.cantida_adquiridad = String(1);
-          if (this.data.list_informacion.length === 0 ) this.data.informacion_articulo = [{ key: "none", value: "none" }];
+          if (this.data.list_informacion.length === 0 ) this.data.informacion_articulo = [];
           // if (this.data.comentario.length === 0) this.data.comentario = [{ key: "none", value: "none" }];
-          if (this.data.list_envios.length === 0) this.data.envios_devoluciones = [{ key: "none", value: "none" }];
+          if (this.data.list_envios.length === 0) this.data.list_envios = [];
           // if (this.data.list_comentario_vendedor.length === 0) this.data.list_comentario_vendedor = [{ username: "pos_r", titulo: "Excelente", comentario: "genial vendedor" }];
           if (Object.keys(this.data.user).length === 0) this.data.user = {};
+          this.data_referecencia_articulo();
         });
       }
     });
@@ -148,6 +157,17 @@ export class ProductviewComponent implements OnInit {
   }
   fn_favorito() {
 
+  }
+  data_referecencia_articulo(){
+    return this._producto.get({
+      where:{},
+      sort: 'createdAt DESC'
+    })
+    .subscribe((res:any)=>{
+      // console.log(res);
+      this.sliderTho.slidesItems = _.orderBy(res.data, ['createdAt'], ['age']);
+      this.sliderThree.slidesItems = _.orderBy(res.data, ['createdAt'], ['desc']);
+    });
   }
 
   async data_chat(){

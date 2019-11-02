@@ -57,7 +57,7 @@ export class ChatComponent implements OnInit {
     }
     return this._chat.get(query)
     .subscribe((rta:any)=>{
-      console.log(rta);
+      // console.log(rta);
         if(this.ev){
           this.disable_list = true;
           if(this.ev.target){
